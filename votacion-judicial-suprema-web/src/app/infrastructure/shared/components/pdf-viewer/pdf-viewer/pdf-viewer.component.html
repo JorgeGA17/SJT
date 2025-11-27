@@ -1,0 +1,39 @@
+<div class="pdf-viewer-container">
+  <!-- Toolbar con botón de split (solo si tiene panelId) -->
+  @if (panelId) {
+    <div class="pdf-viewer-toolbar">
+      <button
+        mat-icon-button
+        [matMenuTriggerFor]="splitMenu"
+        matTooltip="Dividir documento"
+        class="split-btn"
+      >
+        <mat-icon>splitscreen</mat-icon>
+      </button>
+
+      <mat-menu #splitMenu="matMenu">
+        <button mat-menu-item (click)="onSplitDocument('horizontal')">
+          <mat-icon>vertical_split</mat-icon>
+          <span>Dividir horizontalmente</span>
+        </button>
+        <button mat-menu-item (click)="onSplitDocument('vertical')">
+          <mat-icon>horizontal_split</mat-icon>
+          <span>Dividir verticalmente</span>
+        </button>
+      </mat-menu>
+    </div>
+  }
+
+  <!-- Visor PDF con controles nativos de PDF.js -->
+  <div class="pdf-content">
+    <pdf-viewer
+      [src]="documento.url"
+      [show-all]="true"
+      [render-text]="true"
+      [original-size]="false"
+      [autoresize]="true"
+      [show-borders]="true"
+      class="pdf-viewer"
+    ></pdf-viewer>
+  </div>
+</div>

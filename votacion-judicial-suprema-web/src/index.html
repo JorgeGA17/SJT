@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>VotacionJudicialWeb</title>
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+  <app-root></app-root>
+    <!--loading pj-->
+  <div id="cargando" class="content-splash show-loading">
+    <div class="loading">
+      <span class="loader">
+        <img src="assets/img/lpt-m.png" style="width: 100%" />
+      </span>
+    </div>
+  </div>
+  <style>
+    body.swal2-title{
+      margin: 0 !important;
+    }
+    body.swal2-height-auto {
+      height: 100% !important;
+    }
+    div:where(.swal2-container) {
+      z-index: 99999 !important;
+    }
+    div:where(.swal2-container) h2:where(.swal2-title) {
+      /*padding: 0px 16px !important;*/
+      font-size: 24px !important;
+      line-height: 28px !important;
+    }
+    div:where(.swal2-container) div:where(.swal2-html-container) {
+      padding: 4px 16px !important;
+      font-size: 14px !important;
+    }
+    .mat-typography h2 {
+      margin: 0 !important;
+    }
+    /*
+    div:where(.swal2-icon) {
+      width: 3.2em !important;
+      height: 3.2em !important;
+    }
+    div:where(.swal2-icon) .swal2-icon-content {
+      font-size: 2.8em !important;
+    }*/
+    div:where(.swal2-container) div:where(.swal2-popup) {
+      width: 24em !important;
+    }
+    div:where(.swal2-container) div:where(.swal2-actions) {
+      margin: .5em auto 0 !important;
+    }
+    div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-confirm) {
+      background-color: #8b0000 !important;
+      color: #fff;
+      font-size: 14px !important;
+    }
+  </style>
+</body>
+</html>

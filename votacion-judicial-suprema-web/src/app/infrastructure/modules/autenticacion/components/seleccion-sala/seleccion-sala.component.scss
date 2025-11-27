@@ -1,0 +1,95 @@
+@import '../../../../../global.scss';
+
+.main-container{
+    position: fixed;
+    top: 50px;
+    bottom: 0;
+    overflow: auto;
+    left: 0;
+    right: 0;
+  }
+  
+  .main-content {
+    min-height: calc(100vh - 100px);
+    position: relative;
+    margin-right: auto;
+    margin-left: auto;
+  }
+
+  @media (min-width: 1500px){
+    .main-content {
+        width: 1470px;
+    }
+  }
+/*   @media (min-width: 1000px){
+    .main-content {
+        width: 992px;
+    }
+  } */
+.item-sala{
+    border-radius: 8px;
+    cursor: pointer;
+    /* border: 2px solid $color-pj-primary-50; */
+}
+.item-sala:hover {
+    background-color:  $color-vj-accent;
+    -webkit-transition: background-color 200ms linear;
+    -ms-transition: background-color 200ms linear;
+    transition: background-color 200ms linear;
+
+    /*border: 5px double $color-pj-primary-50;
+    -webkit-transition: border 100ms linear;
+    -ms-transition: border 100ms linear;
+    transition: border 100ms linear;*/
+}
+.item-sala.selected {
+    background-color:  $color-vj-primary;
+}
+.icon-sala{
+    font-size: 45px;
+    color: $color-vj-primary;
+}
+.item-sala:hover .icon-sala{
+    color: white
+}
+.item-sala.selected .icon-sala{
+    color: white
+}
+.icon-sala-comtent{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.title-sala{
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 20px;
+}
+.description-sala{
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 20px;
+}
+.item-sala:hover .title-sala{
+    color: white;
+}
+.item-sala:hover .description-sala{
+    color: white;
+}
+.item-sala.selected .title-sala{
+    color: white;
+}
+.item-sala.selected .description-sala{
+    color: white;
+}
+.title-selec-sala{
+    font-size: 18px;
+    font-weight: 500;
+    text-align: center;
+    color: #333333;
+}
+.description-selec-sala{
+    font-size: 16px;
+    text-align: center;
+    color: #888888;
+}

@@ -1,0 +1,150 @@
+<app-navbar></app-navbar>
+<div class="main-container">
+    <div class="main-content">
+        <div #mc1 class="grid center">
+            <div class="center mt-4 w-100">
+                <span class="registro-title">CORTE SUPREMA DE JUSTICIA DE LA REPÚBLICA</span>
+            </div>
+            <div class="center w-100">
+                <span class="registro-title">{{nombreSalaUsuario||''}}</span>
+            </div>
+            <div class="col col-12 mt-4 divisor_subtitle">
+                <div class="centrar-componentes">
+                    <span class="registro-subtitle">REPORTES</span>
+                </div>
+            </div>            
+            <div class="custom-contenido centrar-componentes">
+
+                <div class="container-filtros">
+
+                    <div class="filtro-general">
+                        <div class="w-filtro-general">
+                            <p-dropdown [options]="listaReportes" appendTo="body" [(ngModel)]="reporteSeleccionado" optionLabel="label" placeholder="Seleccionar" (onChange)="cargarConfiguracionReporte()"  [filter]="false" [showClear]="false" [style]="{'width':'100%','border-color': 'black'}"></p-dropdown>
+                        </div>
+                    </div>
+                    <div *ngIf="filtroFechaInicio" class="filtro">
+                        <div class="group-filtro">
+                            <span class="filtro-title">Fecha desde : </span>
+                            <div class="w-100">
+                                <!-- <p-calendar id="fechaini" [(ngModel)]="fechaInicioSel" [yearNavigator]="true" yearRange="2000:2030" [minDate]="minDate" [maxDate]="maxDate" [autoZIndex]="true" appendTo="body" dateFormat="dd/mm/yy" [monthNavigator]="true" [yearNavigator]="true" styleClass="calendar-filtro-custom" inputStyleClass="p-inputtext-sm input-pj calendar-filtro-custom" yearRange="1900:2030" inputId="fechaI" dataType="string" [showIcon]="true"></p-calendar> -->
+                                <p-calendar id="fechaini" [(ngModel)]="fechaInicioSel" [yearNavigator]="true" yearRange="2000:2030" [maxDate]="maxFechaInicial"  [autoZIndex]="true" appendTo="body" dateFormat="dd/mm/yy" [monthNavigator]="true" [yearNavigator]="true" styleClass="calendar-filtro-custom" inputStyleClass="p-inputtext-sm input-pj calendar-filtro-custom" yearRange="1900:2030" inputId="fechaI" dataType="string" [showIcon]="true"></p-calendar>
+                            </div>
+                        </div>
+                    </div>
+                    <div *ngIf="filtroFechaFin" class="filtro">
+                        <div class="group-filtro">
+                            <span class="filtro-title">Fecha hasta : </span>
+                            <div class="w-100">
+                                <p-calendar id="fechafin" [(ngModel)]="fechaFinSel" [yearNavigator]="true" yearRange="2000:2030" [minDate]="minFechaFinal"  [autoZIndex]="true" appendTo="body" dateFormat="dd/mm/yy" [monthNavigator]="true" [yearNavigator]="true" styleClass="calendar-filtro-custom" inputStyleClass="p-inputtext-sm input-pj calendar-filtro-custom" yearRange="1900:2030" inputId="fechaF" dataType="string" [showIcon]="true"></p-calendar>
+                            </div>
+                        </div>
+                    </div>
+                    <div *ngIf="filtroResponsable" class="filtro">
+                        <div class="group-filtro">
+                            <span class="filtro-title">Responsable : </span>
+                            <div class="w-100">
+                                <p-dropdown [options]="listaResponsables" appendTo="body" [(ngModel)]="responsableSeleccionado" optionLabel="name" placeholder="Seleccionar"  [filter]="false" [showClear]="false" [style]="{'width':'100%','border-color': 'black'}"></p-dropdown>
+                            </div>
+                        </div>
+                    </div>
+                    <div *ngIf="filtroEstadoVot" class="filtro">
+                        <div class="group-filtro">
+                            <span class="filtro-title">Estado de votación : </span>
+                            <div class="w-100">
+                                <p-dropdown [options]="listaEstadoVot" appendTo="body" [(ngModel)]="estadoVotSeleccionado" (onChange)="cambiarSel(estadoVotSeleccionado)" optionLabel="name" placeholder="Seleccionar"  [filter]="false" [showClear]="false" [style]="{'width':'100%','border-color': 'black'}"></p-dropdown>
+                            </div>
+                        </div>
+                    </div>
+                    <div *ngIf="filtroEstadoProy" class="filtro">
+                        <div class="group-filtro">
+                            <span class="filtro-title">Estado de proyecto : </span>
+                            <div class="w-100">
+                                <p-dropdown *ngIf="!flagSoloPendiente" [options]="listaEstadoProye" appendTo="body" [(ngModel)]="estadoProySeleccionado" optionLabel="name" placeholder="Seleccionar"  [filter]="false" [showClear]="false" [style]="{'width':'100%','border-color': 'black'}"></p-dropdown>
+                                <p-dropdown *ngIf="flagSoloPendiente" [options]="listaSoloPendEstadoProye" appendTo="body" [(ngModel)]="estadoProySeleccionado" optionLabel="name" placeholder="Seleccionar"  [filter]="false" [showClear]="false" [style]="{'width':'100%','border-color': 'black'}"></p-dropdown>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="filtro-visualiza">
+                        <button pButton pRipple type="button" label="VISUALIZAR" (click)="verResultado()" icon="pi pi-eye"
+                        iconPos="right" class="btn-vj-darkred rounded-sv btn-reporte"></button>
+                    </div>
+                    <div class="filtro-download">
+                        <button pButton pRipple type="button" label="DESCARGAR" (click)="descargarReporte()" icon="pi pi-download"
+                        iconPos="right" class="btn-vj-darkred rounded-sv btn-reporte"></button>
+                    </div>                    
+                </div>
+            </div>
+            <div class="back-custom">
+                <button pButton pRipple type="button" label="REGRESAR" (click)="back()" icon="pi pi-arrow-left"
+                    iconPos="right" class="btn-vj-black rounded-sv"></button>
+            </div>
+        </div>
+    </div>
+    <app-footer></app-footer>
+</div>
+
+<p-dialog header="RESULTADO DE LA BÚSQUEDA" [(visible)]="dialogResultado" [modal]="true"   [closable]="true" [resizable]="false" [draggable]="false" [maximizable]="false" [style]="{width: '90%', height: '750px', margin: '10%' }" styleClass="p-datatable-sm" (onHide)="onDialogHide()">
+    <div class="tabla-busqueda"  style="overflow: scroll;">
+        <p-table [value]="listaResultado" rowGroupMode="rowspan" groupRowsBy="grupoKey" sortField="id" [sortOrder]="0" responsiveLayout="scroll" [tableStyle]="{'min-width': '75rem'}"
+        [rows]="20" [paginator]="true" currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} registros" [showCurrentPageReport]="true">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th style="width:3rem;">#</th>
+                    <th *ngIf="colExpediente" style="text-align: center;">N° EXPEDIENTE</th>
+                    <th *ngIf="colProgramacion" style="text-align: center;">PROGRAMACIÓN</th>
+                    <th *ngIf="colPonente" style="text-align: center;">PONENTE</th>
+                    <th *ngIf="colEstadoVot" style="text-align: center;">ESTADO DE VOTO</th>
+                    <th *ngIf="colTipoRec" style="text-align: center;">TIPO RECURRENTE</th>
+                    <th *ngIf="colRec" style="text-align: center;">RECURRENTE</th>
+                    <th *ngIf="colSentido" style="text-align: center;">SENTIDO</th>
+                    <th *ngIf="colFallo" style="text-align: center;">FALLO</th>
+                    <th *ngIf="colResponsable" style="text-align: center;">RESPONSABLE DEL PROYECTO</th>
+                    <th *ngIf="colEstadoProy" style="text-align: center;">ESTADO DEL PROYECTO</th>
+                    <th *ngIf="colFechaEnvio" style="text-align: center;">FECHA ENVÍO DEL PROYECTO</th>
+                    <th *ngIf="colPendientesValidar" style="text-align: center;">PENDIENTES DE VALIDAR</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-voto let-rowIndex="rowIndex" let-rowgroup="rowgroup" let-rowspan="rowspan">
+                <tr>
+                    <td>{{rowIndex + 1}}</td>
+                    <td *ngIf="rowgroup" [attr.rowspan]="rowspan">
+                        <span class="font-bold ml-2">{{ voto.numeroExpediente }}</span>
+                    </td>
+                    <td *ngIf="rowgroup" [attr.rowspan]="rowspan" style="text-align: center;">
+                        {{ voto.fechaProgramacion }}
+                    </td>
+                    <td *ngIf="rowgroup" [attr.rowspan]="rowspan" style="text-align: center;">
+                        {{ voto.ponente }}
+                    </td>
+                    <td *ngIf="rowgroup" [attr.rowspan]="rowspan" style="text-align: center;">
+                        {{ voto.estadoVoto }}
+                    </td>                    
+                    <td *ngIf="colTipoRec" style="text-align: center;">
+                        {{voto.tipoParte?voto.tipoParte.toUpperCase():'-'}}
+                    </td>
+                    <td *ngIf="colRec" style="text-align: center;">
+                        {{voto.recurrente}}
+                    </td>                                        
+                    <td *ngIf="colSentido" style="text-align: center;">
+                        {{voto.sentido}}
+                    </td>
+                    <td *ngIf="colFallo" style="text-align: center;">
+                        {{voto.fallo}}
+                    </td>
+                    <td *ngIf="colResponsable" style="text-align: center;">
+                        {{voto.responsableProyecto}}
+                    </td>
+                    <td *ngIf="colEstadoProy" style="text-align: center;">
+                        {{voto.estadoProyecto}}
+                    </td>
+                    <td *ngIf="colFechaEnvio" style="text-align: center;">
+                        {{voto.fechaEnvio}}
+                    </td>
+                    <td *ngIf="colPendientesValidar" style="text-align: center;">
+                        {{voto.pendientesValidar}}
+                    </td>                
+                </tr>
+            </ng-template>            
+        </p-table>
+    </div>    
+</p-dialog>

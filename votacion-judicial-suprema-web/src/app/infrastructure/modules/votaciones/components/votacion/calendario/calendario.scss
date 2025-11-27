@@ -1,0 +1,57 @@
+.demo-inline-calendar-card {
+  width: 420px;
+}
+.calendario-content{
+    padding-top: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 880px;
+    max-width: 100%;
+    margin: auto;
+}
+.panel-calendario{
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+}
+.calendario-title{
+    //font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-weight: 600;
+    color: #333;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    line-height: 1;
+    margin: 0;
+    // border-bottom: 3px solid #333;
+}
+.calendario-image{
+    //padding: 4px 32px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+
+}
+.custom-img{
+    max-width: 520px;
+    width: 100%;
+    object-fit: contain; 
+}
+.calendario-info{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.calendario{
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+.calendario-actions{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 24px;
+}

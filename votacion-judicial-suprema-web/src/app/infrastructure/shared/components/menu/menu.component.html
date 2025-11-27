@@ -1,0 +1,16 @@
+<div class="sidebar">
+    <div class="sidebar-header" *ngIf="mobile">
+        <div class="sidebar-img center">
+          <img class="image-logo-mobile" src="assets/img/logo_app.png" alt="imagen logo certificado electronico" />
+        </div>
+    </div>
+    <div class="sidebar-menu">
+      <app-menu-opcion
+        [menuMin]="menuMin"
+        [menuRaiz]="true"
+        [mobile]="mobile"
+        [listaOpciones]="listaOpciones"
+        (menuIndexEvent)="goRoute($event)"
+        (menuActivarEvent)="clickActivarEvent($event)"></app-menu-opcion>
+    </div>
+  </div>

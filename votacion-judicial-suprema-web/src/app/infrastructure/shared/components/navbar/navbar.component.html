@@ -1,0 +1,128 @@
+<div class="header-container">
+    <div class="container-navbar">
+      <div class="left-navbar">
+        <div class="logo-pj">
+          <img class="logo-img" src="assets/img/vj/logo_app_vjs.png" alt="">
+        </div>
+        <div class="logo-pj-mini">
+          <img class="logo-img" src="assets/img/vj/logo_app_vjs.png" alt="">
+        </div>
+        <!-- menu mobile -->
+        @if (listaMenu && listaMenu.length > 0) {
+          <button mat-mini-fab 
+            aria-label="Example icon button with a menu icon"
+            (click)="showMenuMobile = !showMenuMobile"
+            class="btn-menu-mob">
+              <mat-icon>menu</mat-icon>
+          </button>
+        }
+      </div>
+
+      <div class="center-navbar">
+        <!-- menu de opciones  -->
+        <div class="nav-menu" [ngClass]="{'show-menu': showMenuMobile}">
+            <ul class="nav-list">
+              @for (item of listaMenu; track $index) {
+              @if (!item.items || item.items.length == 0) {
+                <li>
+                  <a class="nav-link" 
+                  matRipple 
+                  [ngClass]="{'selected': item.selected}" 
+                  [routerLink]="item.routeLink"
+                  (click)="item?.command?.($event); item.selected= true;">
+                  @if (item.icon && item.icon.trim().length > 0) {
+                    <mat-icon>{{item.icon}}</mat-icon>
+                  }
+                  <!--<mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="home"></mat-icon>-->
+                  <span>{{item.label}}</span>
+                </a>
+                </li>
+              }
+              @else {
+                <!-- dropdown recursivo-->
+                <li class="dropdown-item">
+                  @if (item.icon && item.icon.trim().length > 0) {
+                    <mat-icon>{{item.icon}}</mat-icon>
+                  }
+                  <div class="nav-link" (click)="item.selected= !item.selected;">
+                    {{item.label}}
+                  </div>
+                  <ul class="dropdown-menu" [ngClass]="{'selected': item.selected}">
+                    <ng-container *ngTemplateOutlet="recursiveList; context: { items: item.items }"></ng-container>
+                  </ul>
+                  
+                  <ng-template #recursiveList let-items="items">
+                    <ng-container *ngFor="let item of items">
+                      <li>
+                        <a class="dropdown-link" 
+                        matRipple 
+                        [ngClass]="{'selected': item.selected}" 
+                        [routerLink]="item.routeLink"
+                        (click)="item?.command?.($event); item.selected= true;">
+                        @if (item.icon && item.icon.trim().length > 0) {
+                          <mat-icon>{{item.icon}}</mat-icon>
+                        }
+                        <!--<mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="home"></mat-icon>-->
+                        <span>{{item.label}}</span>
+                        </a>
+                        <ul *ngIf="item.items && item.items.length > 0">
+                          <ng-container *ngTemplateOutlet="recursiveList; context: { items: item.items }"></ng-container>
+                        </ul>
+                      </li>
+                    </ng-container>
+                  </ng-template>
+                </li>
+              }
+            }
+          </ul>
+        </div>
+      </div>
+      
+      <div class="right-navbar">
+        @if (profile) {
+          <div class="profile">
+              <button mat-mini-fab 
+              class=""
+              aria-label="Example icon button with a menu icon"
+              [matMenuTriggerFor]="submenuEnd">
+                <mat-icon>person</mat-icon>
+              </button>
+              <mat-menu #submenuEnd="matMenu">
+                <a  mat-menu-item  >
+                  <mat-icon>person</mat-icon>
+                  <span>{{ dataUsuario$ | async }}</span>
+                </a>
+                @for (itemEnd of listaMenuEnd; track $index) {
+                  <a mat-menu-item  
+                            [ngClass]="{'menu-it-selected': itemEnd.selected}"
+                            [routerLink]="itemEnd.routeLink"
+                            (click)="itemEnd?.command($event)">
+                            @if (itemEnd.icon && itemEnd.icon.trim().length > 0) {
+                                <mat-icon>{{itemEnd.icon}}</mat-icon>
+                            }
+                            <span>{{itemEnd.label}}</span>
+                        </a>
+                }
+            </mat-menu>
+          </div>
+        }
+        @if (!profile) {
+          @if (btnLogin) {
+            <button mat-mini-fab 
+              aria-label="Example icon button with a menu icon"
+              (click)="goLogin()">
+                <mat-icon>person</mat-icon>
+            </button>
+          }
+          <div class="logo-app">
+            <img class="logo-img" src="assets/img/logo_serviciosComunesPIDE_fondoOscuro.png" alt="" />
+          </div>
+          <div class="logo-app-mini">
+            <img class="logo-img" src="assets/img/logo_app_mini.png" alt="" />
+          </div>
+        }
+        
+      </div>
+    </div>
+</div>
+  

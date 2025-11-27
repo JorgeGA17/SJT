@@ -1,0 +1,63 @@
+<app-navbar></app-navbar>
+<div class="main-container">
+    <div class="main-content">
+        <div class="grid center">
+            <!-- <div class="grid main-body">
+                <div class="col-12 mt-2">
+                    <div class="grid center">
+                        <p-panel [showHeader]="false" styleClass="p-panel-transparent px-3 py-4 mx-2">
+                            <div class="card-img center">
+                                <img class="responsive-img" src="assets/img/main_vjs.webp"
+                                    alt="Portada Votación Judicial Suprema">
+                            </div>
+                        </p-panel> 
+                    </div>
+                </div>
+                <div class="container-opciones">
+                    <div class="container-btn">
+                        <button pButton pRipple type="button" label="VOTACIONES" (click)="goVotaciones()" icon="pi pi-pencil"
+                        iconPos="right" class="btn-vj-main rounded-sv"></button>
+                    </div>
+                    <div class="container-btn">
+                        <button pButton pRipple type="button" label="BANDEJA DE TRABAJO" (click)="goBandejaT()"
+                        icon="pi pi-inbox" iconPos="right" class="btn-vj-main rounded-sv"></button>
+                    </div>
+                    <div class="container-btn">
+                        <button pButton pRipple type="button" label="REPORTES" (click)="goReportes()"
+                        icon="pi pi-file-excel" iconPos="right" class="btn-vj-main rounded-sv"></button>
+                    </div>
+                </div>
+            </div> -->
+            <div class="custom-contenido centrar-componentes">
+                <div class="card-img center">
+                    <div class="responsive-img">
+                        <img class="custom-img" [src]="rutaImagen"
+                            alt="Portada Votación Judicial Suprema">
+                            <div class="container-opciones">
+                                <div class="container-btn">
+                                    <button pButton pRipple type="button" label="VOTACIONES" (click)="goVotaciones()" icon="pi pi-pencil"
+                                    iconPos="right" class="btn-vj-main btn-large rounded-sv"></button>
+                                </div>
+                                <div *ngIf="flagBandejaPermitida" class="container-btn">
+                                    <button pButton pRipple type="button" label="BANDEJA DE TRABAJO" (click)="goBandejaT()"
+                                    icon="pi pi-inbox" iconPos="right" class="btn-vj-main btn-large rounded-sv"></button>
+                                </div>
+                                <div class="container-btn">
+                                    <button pButton pRipple type="button" label="REPORTES" (click)="goReportes()"
+                                    icon="pi pi-file-excel" iconPos="right" class="btn-vj-main btn-large rounded-sv"></button>
+                                </div>
+
+                                <div *ngIf="mostrarBtnRegresar" class="container-btn last">
+
+                                    <button pButton pRipple type="button" label="REGRESAR" (click)="goSeleccionarSala()"
+                                    icon="pi pi-replay" iconPos="right" class="btn-vj-main-back btn-large rounded-sv"></button>
+
+                                </div>                                
+                            </div>
+                    </div>
+                </div>
+            </div>            
+        </div>
+    </div>
+    <app-footer></app-footer>
+</div>

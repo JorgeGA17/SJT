@@ -1,0 +1,25 @@
+<app-navbar></app-navbar>
+<div class="main-container">
+    <div class="main-content">
+        <div class="grid center">
+            <div class="img-container mt-2 center">
+                <p-panel [showHeader]="false" styleClass="p-panel-transparent px-3 py-2 mx-2">
+                    <div class="card-img center">
+                        <img class="responsive-img" [src]="rutaImagen"
+                            alt="Portada Votación Judicial Suprema">
+                    </div>
+                </p-panel> 
+            </div>
+            <div class="col col-12 center">
+                <span class="calendario-title">Votaciones por fecha</span>
+            </div>
+            <div class="cal-container mt-2 center">
+                <p-calendar id="calendario-vj" #targetComponent [(ngModel)]="date" [inline]="true" (onSelect)="seleccionarFecha($event)" [showWeek]="false"></p-calendar>
+            </div>
+            <div class="col center">
+                <button pButton pRipple type="button" label="Regresar" (click)="back()" icon="pi pi-arrow-left" iconPos="right"  class="btn-vj-black rounded-sv"></button>
+            </div>             
+        </div>
+    </div>
+    <app-footer></app-footer>
+</div>

@@ -1,0 +1,57 @@
+<div class="reporte-content">
+    <mat-expansion-panel [expanded]="true">
+        <mat-expansion-panel-header>
+            <mat-panel-title> REPORTES </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div class="reporte-body">
+
+            <mat-form-field appearance="outline" class="w-100 login-valid" >
+                <mat-label>Tipo Reporte</mat-label>
+                <mat-select class="select-mt" >
+                    <mat-option class="seletc-option-mt" value="in">IN</mat-option>
+                    <mat-option class="seletc-option-mt" value="out">OUT</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="w-100 login-valid">
+                <mat-label>Fecha Inicio</mat-label>
+                <input matInput [matDatepicker]="pickerDesde">
+                <mat-datepicker-toggle matIconSuffix [for]="pickerDesde"></mat-datepicker-toggle>
+                <mat-datepicker #pickerDesde [touchUi]="false"></mat-datepicker>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="w-100 login-valid">
+                <mat-label>Fecha Fin</mat-label>
+                <input matInput [matDatepicker]="pickerHasta">
+                <mat-datepicker-toggle matIconSuffix [for]="pickerHasta"></mat-datepicker-toggle>
+                <mat-datepicker #pickerHasta [touchUi]="false"></mat-datepicker>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="w-100 " >
+                <mat-label>Estado de Voto</mat-label>
+                <mat-select class="select-mt">
+                    <mat-option class="seletc-option-mt" value="in">IN</mat-option>
+                    <mat-option class="seletc-option-mt" value="out">OUT</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <div class="reporte-acciones">
+                <div class="btn-group">
+                    <button mat-flat-button class="btn-mt" >
+                        <mat-icon>visibility</mat-icon>
+                        Visualizar
+                    </button>
+                    <button mat-flat-button class="btn-mt" >
+                        <mat-icon>download</mat-icon>
+                        Descargar
+                    </button>
+                </div>
+                
+            </div>
+            <div class="volver">
+                <button mat-flat-button class="btn-outline-mt" style="margin: inherit;"> Volver</button>
+                
+            </div>
+        </div>
+    </mat-expansion-panel>
+</div>

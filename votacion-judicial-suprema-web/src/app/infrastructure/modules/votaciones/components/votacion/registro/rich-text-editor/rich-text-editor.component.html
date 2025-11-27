@@ -1,0 +1,11 @@
+<div class="editor-card">
+  <quill-editor
+      [(ngModel)]="contentSignal"
+      [modules]="quillConfig"
+      (onContentChanged)="onContentChanged($event)"
+      placeholder="Escriba el análisis legal aquí..."
+      class="quill-editor"
+    ></quill-editor>
+</div>
+    
+

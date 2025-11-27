@@ -1,0 +1,16 @@
+<div class="header">
+    <div class="icon-header header-item" *ngIf="btn">
+        <button mat-icon-button (click)="goBack()" aria-label="Example icon button with a vertical three dot icon">
+          <mat-icon>arrow_back_ios</mat-icon>
+        </button>
+    </div>
+    <div class="header-item header-text">
+      <div class="title-header">
+        {{ titulo }}
+      </div>
+      <div class="description-header">
+        {{ descripcion }}
+      </div>
+    </div>
+  </div>
+  

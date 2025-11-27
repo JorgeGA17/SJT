@@ -1,0 +1,34 @@
+<div class="pdf-dialog-container" appDraggableDialog appResizableDialog>
+  <!-- Toolbar (drag handle) -->
+  <mat-toolbar class="pdf-toolbar">
+    <mat-icon class="drag-indicator">drag_indicator</mat-icon>
+    <button mat-icon-button (click)="toggleSidebar()">
+      <mat-icon>{{ sidebarOpen() ? 'menu_open' : 'menu' }}</mat-icon>
+    </button>
+    <span class="toolbar-title">Visualizador de Documentos</span>
+    <span class="spacer"></span>
+    <button mat-icon-button (click)="close()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </mat-toolbar>
+
+  <!-- Content Container -->
+  <div class="content-container">
+    <!-- Sidebar -->
+    <div class="sidebar" *ngIf="sidebarOpen()">
+      <app-pdf-file-list
+        [documentos]="documentos"
+        [openDocuments]="openDocuments()"
+        (documentSelected)="onDocumentSelected($event)"
+      ></app-pdf-file-list>
+    </div>
+
+    <!-- Main Viewer Area -->
+    <div class="viewer-area">
+      <app-pdf-multi-panel
+        [openDocuments]="openDocuments()"
+        (documentClosed)="onDocumentClosed($event)"
+      ></app-pdf-multi-panel>
+    </div>
+  </div>
+</div>

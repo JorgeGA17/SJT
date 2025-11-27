@@ -1,0 +1,110 @@
+<div class="pick-list-container">
+  <!-- Lista de disponibles -->
+  <mat-card class="list-card">
+    <mat-card-header>
+      <mat-card-title>Disponibles ({{ disponiblesSignal().length }})</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div
+        cdkDropList
+        #disponiblesList="cdkDropList"
+        id="disponibles-list"
+        [cdkDropListData]="disponiblesSignal()"
+        [cdkDropListConnectedTo]="[seleccionadosList]"
+        (cdkDropListDropped)="drop($event)"
+        class="item-list"
+      >
+        <div
+          *ngFor="let item of disponiblesSignal()"
+          cdkDrag
+          class="list-item"
+          [class.selected]="isSelected(item, 'disponibles')"
+          (click)="toggleSelection(item, 'disponibles')"
+        >
+          <mat-icon class="drag-handle" cdkDragHandle>drag_indicator</mat-icon>
+          <span class="item-text">{{ item }}</span>
+        </div>
+
+        <div *ngIf="disponiblesSignal().length === 0" class="empty-message">
+          No hay items disponibles
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- Botones de transferencia -->
+  <div class="transfer-buttons">
+    <button
+      mat-mini-fab
+      color="primary"
+      (click)="moveToSelected()"
+      [disabled]="selectedDisponibles().size === 0"
+      matTooltip="Mover seleccionados a la derecha"
+    >
+      <mat-icon>chevron_right</mat-icon>
+    </button>
+
+    <button
+      mat-mini-fab
+      color="primary"
+      (click)="moveAllToSelected()"
+      [disabled]="disponiblesSignal().length === 0"
+      matTooltip="Mover todos a la derecha"
+    >
+      <mat-icon>keyboard_double_arrow_right</mat-icon>
+    </button>
+
+    <button
+      mat-mini-fab
+      color="primary"
+      (click)="moveToAvailable()"
+      [disabled]="selectedSeleccionados().size === 0"
+      matTooltip="Mover seleccionados a la izquierda"
+    >
+      <mat-icon>chevron_left</mat-icon>
+    </button>
+
+    <button
+      mat-mini-fab
+      color="primary"
+      (click)="moveAllToAvailable()"
+      [disabled]="seleccionadosSignal().length === 0"
+      matTooltip="Mover todos a la izquierda"
+    >
+      <mat-icon>keyboard_double_arrow_left</mat-icon>
+    </button>
+  </div>
+
+  <!-- Lista de seleccionados -->
+  <mat-card class="list-card">
+    <mat-card-header>
+      <mat-card-title>Seleccionados ({{ seleccionadosSignal().length }})</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div
+        cdkDropList
+        #seleccionadosList="cdkDropList"
+        id="seleccionados-list"
+        [cdkDropListData]="seleccionadosSignal()"
+        [cdkDropListConnectedTo]="[disponiblesList]"
+        (cdkDropListDropped)="drop($event)"
+        class="item-list"
+      >
+        <div
+          *ngFor="let item of seleccionadosSignal()"
+          cdkDrag
+          class="list-item"
+          [class.selected]="isSelected(item, 'seleccionados')"
+          (click)="toggleSelection(item, 'seleccionados')"
+        >
+          <mat-icon class="drag-handle" cdkDragHandle>drag_indicator</mat-icon>
+          <span class="item-text">{{ item }}</span>
+        </div>
+
+        <div *ngIf="seleccionadosSignal().length === 0" class="empty-message">
+          No hay items seleccionados
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

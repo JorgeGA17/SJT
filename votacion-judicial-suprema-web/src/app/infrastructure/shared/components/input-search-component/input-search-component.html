@@ -1,0 +1,22 @@
+<!-- search.component.html -->
+<mat-form-field class="search-form-field" appearance="outline">
+  <mat-label>Buscar</mat-label>
+  <input 
+    matInput 
+    type="text"
+    [(ngModel)]="searchValue"
+    (keyup.enter)="onSearch()"
+    placeholder="Ingrese su búsqueda..."
+    class="search-input"
+  >
+  <button 
+    mat-icon-button 
+    matSuffix 
+    (click)="onSearch()"
+    class="search-button"
+    [disabled]="!searchValue"
+    type="button"
+  >
+    <mat-icon>search</mat-icon>
+  </button>
+</mat-form-field>

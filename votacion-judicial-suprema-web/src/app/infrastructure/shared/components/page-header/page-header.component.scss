@@ -1,0 +1,41 @@
+.header {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+  }
+  ::ng-deep .btn-back {
+    padding: 0px 0px !important;
+    background-color: transparent !important;
+    border: none !important;
+    color: #333333;
+  }
+  ::ng-deep .btn-back span {
+    font-size: 20px;
+  }
+  .header-item {
+    padding: 0.5rem 0rem 0rem 0rem;
+    height: 50px;
+  }
+  .header-text{
+    display: flex;
+    flex-direction: column;
+  }
+  .title-header {
+    margin-right: 0.5rem;
+    font-size: 18px;
+    line-height: 24px;
+    font-weight: 500;
+    font-size: 16px;
+  }
+  .description-header {
+    color: #666666;
+    font-size: 14px;
+    line-height: 14px;
+  }
+  @media screen and (max-width: 576px) {
+    .title-header {
+      width: 100%;
+    }
+  }
+  

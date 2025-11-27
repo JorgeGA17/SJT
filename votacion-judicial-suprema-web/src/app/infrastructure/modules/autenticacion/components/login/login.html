@@ -1,0 +1,64 @@
+
+<div class="form-container">
+    <div class="card-login">
+        <div class="content-login">
+            <h1 class="login-title">
+                Votación Judicial
+            </h1>
+            <div class="version-info">
+                v2.0.0
+            </div>
+            <!--<div class="login-welcome">
+                Iniciar Sesión
+            </div>-->
+            <div class="line"></div>
+            <div class="login-text">
+                Ingresa los datos solicitados para acceder a la plataforma.
+            </div>
+            <div class="form-login">
+                <div  *ngIf="errorresponse" class="login-response-error">
+                    <mat-icon class="material-icons-outlined">warning</mat-icon> {{errorMensaje}}
+                </div>
+                <div class="">
+                    <mat-form-field appearance="outline" class="w-100" [ngClass]="{'login-valid':!usuarioValido}">
+                        <mat-label>Usuario</mat-label>
+                        <input matInput placeholder="Usuario" [(ngModel)]="dataLogin.usuario" (change)="validarUsuario()" >
+                        <mat-hint *ngIf="!usuarioValido" class="login-input-valid valid-space">
+                            <mat-icon class="material-symbols-outlined">warning</mat-icon> {{errorUsuario}}
+                        </mat-hint>
+                    </mat-form-field>
+                </div>
+                <div  *ngIf="!usuarioValido" class="space-login-error"></div>
+                <div>
+                    <mat-form-field appearance="outline" class="w-100" [ngClass]="{'login-valid':!passwordValido}">
+                        <mat-label>Contraseña</mat-label>
+                        <input matInput [type]="hide() ? 'password' : 'text'" placeholder="Contraseña" [(ngModel)]="dataLogin.clave" (change)="validaPassword()"/>
+                        <button
+                        mat-icon-button
+                        matSuffix
+                        class="btn-show-password"
+                        (click)="clickEvent($event)"
+                        [attr.aria-label]="'Hide password'"
+                        [attr.aria-pressed]="hide()"
+                        >
+                        <mat-icon>{{hide() ? 'visibility' : 'visibility_off'}}</mat-icon>
+                        </button>
+                        <mat-hint *ngIf="!passwordValido" class="login-input-valid valid-space">
+                            <mat-icon class="material-symbols-outlined">warning</mat-icon> {{errorPassword}}
+                        </mat-hint>
+                    </mat-form-field>
+                </div>
+                <div *ngIf="!passwordValido" class="space-login-error"></div>
+                <div class="center">
+                    <button mat-flat-button class="btn-mt" (click)="login()" [disabled]="dataLogin.usuario.trim() ==='' || dataLogin.clave.trim() ===''">Ingresar</button>
+                </div>
+            </div>
+            <div class="login-space-lo"></div>
+            <div class="line"></div>
+            <div class="login-text">
+                Copyright 2025. Todos los derechos reservados <br>
+                Recomendado para Chrome, Mozilla Firefox y Microsoft Edge
+            </div>
+        </div>
+    </div>
+</div>

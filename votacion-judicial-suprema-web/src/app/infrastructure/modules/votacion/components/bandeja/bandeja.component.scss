@@ -1,0 +1,153 @@
+@import '../../../../../global.scss';
+
+// .main-container{
+//     position: fixed;
+//     top: 70px;
+//     bottom: 0;
+//     overflow: auto;
+//     left: 0;
+//     right: 0;
+//   }
+//   .main-content {
+//     min-height: calc(100vh - 160px);
+//     position: relative;
+//     margin-right: auto;
+//     margin-left: auto;
+//   }
+
+.main-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: auto;
+    overflow: auto;
+}
+
+.main-content {
+    flex: 1;
+    margin: 0;
+    padding: 5px;
+}
+
+.registro-title{
+    //font-family: 'Playfair Display', serif;
+    font-size: 1.9em;
+    font-weight: 600;
+    color: #333;
+    text-align: center;
+    text-transform: uppercase;
+    //letter-spacing: 0.5px;
+    line-height: 1;
+    margin: 0;
+}
+
+.divisor_subtitle{
+    height: 40px;
+    background-color: darkkhaki;
+    width: 100%;
+    text-align: center;
+    //padding-bottom: 40px;
+}
+
+.centrar-componentes{
+    max-width: 1300px;
+    width: 100%;
+    margin: auto;
+}
+
+.registro-subtitle{
+    font-size: 1.2em;
+    font-weight: 600;
+    color: #363636;
+    font-weight: 700;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.custom-contenido{
+    //height: 100vh;
+    width: 100%;
+    padding: 0;
+    position: relative;
+}
+
+.container-opciones{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    width: 100%;
+    position: absolute;
+    bottom: 30%;
+    gap: 30px;
+}
+
+.card-img{
+    border: 0;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.responsive-img {
+    width: calc(100%);
+    height: auto;
+    //max-height: calc(100vh - 160px);
+    //max-width: 100vh;
+}
+
+.custom-img{
+    width: 100%;
+}
+
+.div-opcion {
+    border: 1px solid #ced4da;
+    border-radius: .55rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    user-select: none;
+    //box-shadow: 3px 6px 0px 4px grey;
+    box-shadow: 0 8px 17px 2px rgba(150, 150, 150, 0.43), 0 3px 14px 2px rgba(150, 150, 150, 0.44), 0 5px 5px -3px rgba(150, 150, 150, 0.4);
+}
+
+.boton-pendientes{
+    background-color: #945959;
+}
+
+.boton-validar{
+    background-color: #945959;
+}
+
+.div-opcion:hover {
+    background-color: #b30000;
+}
+
+.div-opcion:active {
+    background-color: #7f0000;
+}
+
+.contador-opcion{
+    width: 100%;
+    color: white;
+    text-align: center;
+    font-size: xx-large;
+    font-weight: 700;
+    padding-inline: 30px;
+    padding-block: 50px;
+}
+
+.nombre-opcion{
+    width: 100%;
+    background-color: white;
+    padding-inline: 30px;
+    padding-block: 25px;
+    border-radius: 0 0 .55rem .55rem;
+    //margin-block: 12px;
+}
+
+.back-custom{
+    width: 100%;
+    position: absolute;
+    bottom: 10%;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+}

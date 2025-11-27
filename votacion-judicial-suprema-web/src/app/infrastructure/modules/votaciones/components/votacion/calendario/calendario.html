@@ -1,0 +1,26 @@
+<div class="calendario-content">
+    <div class="panel-calendario">
+
+        <div class="calendario-image">
+            <img class="custom-img" src="assets/img/vj/bandeja_trabajo_209.webp"
+                    alt="Portada Votación Judicial Suprema">
+        </div>
+
+        <div class="calendario">
+            <mat-expansion-panel [expanded]="true">
+                <mat-expansion-panel-header>
+                    <mat-panel-title> Votaciones por fecha</mat-panel-title>
+                </mat-expansion-panel-header>
+                <app-calendar-view></app-calendar-view>
+            </mat-expansion-panel>
+            
+            <!--<mat-card class="demo-inline-calendar-card">
+                <mat-calendar [(selected)]="selected"></mat-calendar>
+            </mat-card>-->
+        </div>
+    </div>
+    
+    <div class="calendario-actions">
+        <button mat-flat-button class="pj-btn-flat mat-elevation-z3" (click)="regresar()">Regresar</button>
+    </div>
+</div>

@@ -1,0 +1,32 @@
+
+<div class="form-container">
+    <div class="card-login">
+        <div class="content-login">
+            <div class="login-welcome">
+                !Bienvenido¡
+            </div>
+            <div class="line"></div>
+            <div class="login-text">
+                Seleccione la sala con la que desea ingresar a la plataforma
+            </div>
+            <div class="seleccion-perfil">
+                @for (item of listaSalas; track $index) {
+                    <div [ngClass]="{ selected: item.select }"
+                    class="item-perfil"
+                    (click)="selectedPerfil($index, item)" mat-ripple>
+                        <div class="perfil-icon">
+                            <mat-icon>account_balance</mat-icon>
+                        </div>
+                        <div class="perfil-desc">
+                            <span class="title-perfil">{{ item.codigoInstancia }}</span>
+                            <span class="description-perfil">{{ item.nombreInstancia }}</span>
+                        </div>
+                    </div>
+                }
+            </div>
+            <div class="center">
+                <button mat-flat-button class="pj-btn-flat mat-elevation-z3" (click)="ingresar()">Ingresar Plataforma</button>
+            </div>
+        </div>
+    </div>
+</div>

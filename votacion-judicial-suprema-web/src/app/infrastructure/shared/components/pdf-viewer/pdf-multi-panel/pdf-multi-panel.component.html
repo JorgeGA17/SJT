@@ -1,0 +1,145 @@
+<div class="multi-panel-container">
+  <!-- Toolbar superior con botón para crear paneles -->
+  <div class="panel-toolbar">
+    <button
+      mat-button
+      class="create-panel-btn"
+      [matMenuTriggerFor]="createPanelMenu"
+      matTooltip="Crear nuevo panel vacío"
+    >
+      <mat-icon>add_box</mat-icon>
+      <span>Nuevo Panel</span>
+    </button>
+
+    <mat-menu #createPanelMenu="matMenu">
+      <button mat-menu-item (click)="createEmptyPanel('horizontal')">
+        <mat-icon>vertical_split</mat-icon>
+        <span>Panel horizontal</span>
+      </button>
+      <button mat-menu-item (click)="createEmptyPanel('vertical')">
+        <mat-icon>horizontal_split</mat-icon>
+        <span>Panel vertical</span>
+      </button>
+    </mat-menu>
+  </div>
+
+  <!-- Área de paneles -->
+  <div class="panels-area">
+    @if (rootPanel()) {
+      <ng-container *ngTemplateOutlet="panelTemplate; context: { $implicit: rootPanel() }"></ng-container>
+    }
+  </div>
+</div>
+
+<!-- Template recursivo para paneles -->
+<ng-template #panelTemplate let-node>
+  @if (isSplit(node)) {
+    <!-- Nodo Split: contiene múltiples paneles -->
+    <div
+      [id]="node.id"
+      class="split-container"
+      [class.split-horizontal]="node.direction === 'horizontal'"
+      [class.split-vertical]="node.direction === 'vertical'"
+    >
+      @for (child of node.children; track trackByPanelId($index, child); let i = $index) {
+        <!-- Panel hijo -->
+        <div
+          class="split-pane"
+          [style.width]="node.direction === 'horizontal' ? node.sizes[i] + '%' : '100%'"
+          [style.height]="node.direction === 'vertical' ? node.sizes[i] + '%' : '100%'"
+        >
+          <ng-container *ngTemplateOutlet="panelTemplate; context: { $implicit: child }"></ng-container>
+        </div>
+
+        <!-- Separador entre paneles (excepto después del último) -->
+        @if (i < node.children.length - 1) {
+          <div
+            class="split-separator"
+            [class.horizontal]="node.direction === 'horizontal'"
+            [class.vertical]="node.direction === 'vertical'"
+            (mousedown)="onResizeStart($event, node.id, i)"
+          >
+            <div class="separator-handle"></div>
+          </div>
+        }
+      }
+    </div>
+  } @else if (isLeaf(node)) {
+    <!-- Nodo Leaf: puede tener documento o estar vacío -->
+    <div class="panel-leaf" [class.empty-panel]="!node.documento">
+      <!-- Header del panel -->
+      <div class="panel-header">
+        <div class="panel-title">
+          <mat-icon class="panel-icon">
+            {{ node.documento ? 'description' : 'insert_drive_file' }}
+          </mat-icon>
+          <span class="panel-name">
+            {{ node.documento ? node.documento.nombre : 'Panel vacío' }}
+          </span>
+        </div>
+        <div class="panel-actions">
+          <!-- Botón split del multi-panel (siempre visible para crear paneles vacíos) -->
+          <button
+            mat-icon-button
+            class="panel-action-btn"
+            [matMenuTriggerFor]="splitPanelMenu"
+            matTooltip="Dividir panel"
+          >
+            <mat-icon>splitscreen</mat-icon>
+          </button>
+
+          <!-- Botón para cerrar documento (solo visible si hay documento) -->
+          @if (node.documento) {
+            <button
+              mat-icon-button
+              class="panel-action-btn"
+              (click)="closeDocumentInPanel(node.id)"
+              matTooltip="Cerrar documento"
+            >
+              <mat-icon>close</mat-icon>
+            </button>
+          }
+
+          <!-- Botón para cerrar panel (eliminar panel) -->
+          <button
+            mat-icon-button
+            class="panel-action-btn"
+            (click)="closePanel(node.id)"
+            matTooltip="Eliminar panel"
+          >
+            <mat-icon>delete</mat-icon>
+          </button>
+
+          <!-- Menú de división del multi-panel (crea paneles vacíos) -->
+          <mat-menu #splitPanelMenu="matMenu">
+            <button mat-menu-item (click)="splitPanel(node.id, 'horizontal', null)">
+              <mat-icon>vertical_split</mat-icon>
+              <span>Dividir horizontalmente</span>
+            </button>
+            <button mat-menu-item (click)="splitPanel(node.id, 'vertical', null)">
+              <mat-icon>horizontal_split</mat-icon>
+              <span>Dividir verticalmente</span>
+            </button>
+          </mat-menu>
+        </div>
+      </div>
+
+      <!-- Contenido del panel -->
+      <div class="panel-content">
+        @if (node.documento) {
+          <app-pdf-viewer
+            [documento]="node.documento"
+            [panelId]="node.id"
+            (splitDocument)="onSplitDocument($event)"
+          ></app-pdf-viewer>
+        } @else {
+          <div class="empty-panel-message">
+            <mat-icon class="empty-icon">folder_open</mat-icon>
+            <h3>Panel vacío</h3>
+            <p>Selecciona un documento de la lista lateral para visualizarlo aquí</p>
+          </div>
+        }
+      </div>
+    </div>
+  }
+</ng-template>

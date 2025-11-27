@@ -1,0 +1,104 @@
+<div class="proyecto-content">
+    <div class="divisor_subtitle">
+        <span class="registro-subtitle">PENDIENTES PARA PROYECTAR</span>
+    </div>
+
+    <div class="proyecto-filter">
+        <div class="filter-item">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Estados</mat-label>
+                <mat-select class="select-mt">
+                        <mat-option value="08:00">PENDIENTE</mat-option>
+                        <mat-option value="09:00">PENDIENTE</mat-option>
+                        <mat-option value="10:00">PENDIENTE</mat-option>
+                        <mat-option value="11:00">PENDIENTE</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="filter-item">
+            <mat-form-field appearance="outline" class="w-100 ">
+                <mat-label>Inicio</mat-label>
+                <input matInput [matDatepicker]="pickerInicio" placeholder="Fecha" [(ngModel)]="fechaIniSeleccionado">
+                <mat-datepicker-toggle matIconSuffix [for]="pickerInicio"></mat-datepicker-toggle>
+                <mat-datepicker #pickerInicio></mat-datepicker>
+            </mat-form-field>
+        </div>
+        <div class="filter-item">
+            <mat-form-field appearance="outline" class="w-100 ">
+                <mat-label>Fin</mat-label>
+                <input matInput [matDatepicker]="pickerFin" placeholder="Fecha" [(ngModel)]="fechaFinSeleccionado">
+                <mat-datepicker-toggle matIconSuffix [for]="pickerFin"></mat-datepicker-toggle>
+                <mat-datepicker #pickerFin></mat-datepicker>
+            </mat-form-field>
+        </div>
+        <div class="filter-item">
+            <button mat-button class="btn-mt btn-size-form">Continuar</button>
+        </div>
+    </div>
+    <div class="proyecto-table">
+        <table class="data-estados-compra">
+        <thead>
+            <tr>
+                <td>N°</td>
+                <td>EXPEDIENTE</td>
+                <td>FECHA PROGRAMACIÓN</td>
+                <td>NRO. ENVIO</td>
+                <td>ESTADO PROYECTO</td>
+                <td>ESTADO VOTACIÓN</td>
+                <td>RESPONSABLE</td>
+                <td>OPCIONES</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="impar">
+                <td>1</td>
+                <td>00052-2025</td>
+                <td>26/06/2025</td>
+                <td>1</td>
+                <td>PENDIENTE</td>
+                <td>VOTADO</td>
+                <td>UYAYA</td>
+                <td>
+                    <div class="acciones-users">
+                        <div class="state-detail-icon" matRipple>
+                            <mat-icon class="material-icons-outlined">visibility</mat-icon>
+                            <span>VER</span>
+                        </div>
+    
+                        <div class="state-detail-icon" matRipple>
+                            <mat-icon class="material-icons-outlined">upload_file</mat-icon>
+                            <span>SUBIR</span>
+                        </div>
+                    </div>
+                    
+                </td>
+            </tr>
+            <tr class="par">
+                <td>2</td>
+                <td>18421-2024</td>
+                <td>27/11/2024</td>
+                <td>1</td>
+                <td>PENDIENTE</td>
+                <td>VOTADO</td>
+                <td>UYAYA</td>
+                <td>
+                    <div class="acciones-users">
+                        <div class="state-detail-icon" matRipple>
+                            <mat-icon class="material-icons-outlined">visibility</mat-icon>
+                            <span>VER</span>
+                        </div>
+    
+                        <div class="state-detail-icon" matRipple>
+                            <mat-icon class="material-icons-outlined">upload_file</mat-icon>
+                            <span>SUBIR</span>
+                        </div>
+                    </div>
+                    
+                </td>
+            </tr>
+        </tbody>
+
+        
+    </table>
+    </div>
+</div>

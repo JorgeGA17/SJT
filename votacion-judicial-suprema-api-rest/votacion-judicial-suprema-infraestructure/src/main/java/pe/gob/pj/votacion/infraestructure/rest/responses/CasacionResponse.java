@@ -1,0 +1,50 @@
+package pe.gob.pj.votacion.infraestructure.rest.responses;
+
+import java.math.BigDecimal;
+
+public record CasacionResponse(
+    String codigoEstado,
+    String nombreEstado,
+    String codigoProgramacion,
+    String codigoDitrito,
+    String codigoProvincia,
+    String codigoInstancia,
+    String nombreInstancia,
+    Integer numeroProgramacion,
+    Integer numeroGrupo,
+    Integer numeroSecuencia,
+    Integer numeroConformacion,
+    BigDecimal numeroUnico,
+    Integer numeroIncidente,
+    String fechaIngreso,
+    String fechaProgramacion,
+    BigDecimal numeroExpedienteSala,
+    String codigoLetra,
+    String numeroAnioSala,
+    String numeroRecurso,
+    String codigoMotivoIngreso,
+    String nombreMotivoIngreso,
+    String codigoProcedencia,
+    String nombreProcedencia,
+    Integer numeroOrden,
+    String fechaEstado,
+    String codigoArea,
+    Integer numeroSentido,
+    Integer numeroVotacion,
+    
+    String vocalPonente,
+    String descripcionTipoProgramaAudienciaOrgano,
+    String abreviaturaTipoProgramaAudienciaOrgano,
+    String descripcionProceso,
+    String descripcionActoProcesalJuzgado,
+    Integer numeroFojasJuzgado,
+    String descripcionActoProcesalJuzgadoAdicional,
+    String descripcionActoProcesalSala,
+    Integer numeroFojasSala,
+    String descripcionActoProcesalSalaAdicional,
+    Integer codigoFalloSala,
+    String descripcionFalloSala,
+    Integer codigoFalloJuzgado,
+    String descripcionFalloJuzgado) {
+
+}

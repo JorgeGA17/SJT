@@ -1,0 +1,229 @@
+.main-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: auto;
+    overflow: auto;
+}
+
+.main-content {
+    flex: 1;
+    margin: 0;
+    padding: 5px;
+}
+
+.registro-title{
+    //font-family: 'Playfair Display', serif;
+    font-size: 1.9em;
+    font-weight: 600;
+    color: #333;
+    text-align: center;
+    text-transform: uppercase;
+    //letter-spacing: 0.5px;
+    line-height: 1;
+    margin: 0;
+}
+
+.divisor_subtitle{
+    height: 40px;
+    background-color: darkkhaki;
+    width: 100%;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    //padding-bottom: 40px;
+}
+
+.centrar-componentes{
+    max-width: 1300px;
+    width: 100%;
+    margin: auto;
+}
+
+.registro-subtitle{
+    font-size: 1.2em;
+    font-weight: 600;
+    color: #363636;
+    font-weight: 700;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.custom-contenido{
+    //height: 100vh;
+    width: 100%;
+    padding: 0;
+    position: relative;
+}
+
+.container-opciones{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    width: 100%;
+    position: absolute;
+    bottom: 64px;
+    gap: 30px;
+}
+
+.card-img{
+    border: 0;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.responsive-img {
+    width: calc(100%);
+    height: auto;
+    //max-height: calc(100vh - 160px);
+    //max-width: 100vh;
+}
+
+.custom-img{
+    width: 100%;
+}
+
+.div-opcion {
+    border: 1px solid #ced4da;
+    border-radius: .55rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    user-select: none;
+    //box-shadow: 3px 6px 0px 4px grey;
+    box-shadow: 0 8px 17px 2px rgba(150, 150, 150, 0.43), 0 3px 14px 2px rgba(150, 150, 150, 0.44), 0 5px 5px -3px rgba(150, 150, 150, 0.4);
+}
+
+.boton-pendientes{
+    background-color: #945959;
+}
+
+.boton-validar{
+    background-color: #945959;
+}
+
+.div-opcion:hover {
+    background-color: #b30000;
+}
+
+.div-opcion:active {
+    background-color: #7f0000;
+}
+
+.contador-opcion{
+    //width: 100%;
+    color: white;
+    text-align: center;
+    font-size: xx-large;
+    font-weight: 700;
+    padding-inline: 30px;
+    padding-block: 50px;
+
+}
+
+.nombre-opcion{
+    //width: 100%;
+    background-color: white;
+    padding-inline: 30px;
+    padding-block: 25px;
+    border-radius: 0 0 .55rem .55rem;
+    //margin-block: 12px;
+}
+
+.back-custom{
+    width: 100%;
+    position: absolute;
+    bottom: 16px;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+}
+
+
+/* Estilo 4: Sello Notarial Oscuro */
+
+.sello-notarial {
+    position: relative;
+    background: radial-gradient(ellipse at center, #1a1a1a, #0a0a0a);
+    padding: 35px;
+    border: 3px solid #888888;
+    border-radius: 15px;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+    overflow: hidden;
+    width: 280px;
+}
+
+.sello-notarial::before {
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+        45deg,
+        transparent 30%,
+        rgba(255, 215, 0, 0.4) 50%,
+        transparent 70%
+    );
+    transform: rotate(45deg);
+    transition: all 0.6s;
+    opacity: 0;
+}
+
+.sello-notarial:hover::before {
+    animation: shine-sweep-dark 0.6s ease-in-out;
+    opacity: 1;
+}
+
+@keyframes shine-sweep-dark {
+    0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+    100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+}
+
+.seal-mark {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    width: 60px;
+    height: 60px;
+    border: 3px double #888888;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    color: #888888;
+    background: rgba(26, 26, 26, 0.9);
+}
+
+.sello-notarial:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 40px rgba(255, 215, 0, 0.3);
+    border-color: #ffd700;
+}
+
+.sello-notarial:hover .seal-mark {
+    border-color: #ffd700;
+    color: #ffd700;
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+}
+
+/* Texto común para todos los estilos */
+.texto-contenido {
+    text-align: center;
+    color: #e0e0e0;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 1.6;
+    position: relative;
+    z-index: 1;
+    text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+/* Efecto hover para el texto */
+.sello-notarial:hover .texto-contenido {
+    color: #ffd700;
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+}

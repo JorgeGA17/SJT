@@ -1,0 +1,40 @@
+<div class="col col-12 mt-4 divisor_subtitle">
+    <div class="centrar-componentes">
+        <span class="registro-subtitle">BANDEJA DE TRABAJO</span>
+    </div>
+</div>               
+<div class="custom-contenido centrar-componentes">
+    <div class="card-img center">
+        <div class="responsive-img">
+            <img class="custom-img" src="assets/img/vj/bandeja_trabajo_209.webp"
+                alt="Portada Votación Judicial Suprema">
+            <div class="container-opciones">
+                 <div class="sello-notarial" (click)="irProyectos()">
+                    <div class="seal-mark">100</div>
+                    <div class="texto-contenido">
+                        Pendientes<br/>
+                        para proyectar
+                    </div>
+                </div>
+                <div class="sello-notarial" (click)="irValidacion()">
+                    <div class="seal-mark">20</div>
+                    <div class="texto-contenido">
+                        Pendientes<br/>
+                        por validar
+                    </div>
+                </div>
+                <!--<div class="div-opcion boton-pendientes" (click)="irProyectos()">
+                    <div class="contador-opcion"><span>100</span></div>
+                    <div class="nombre-opcion"><label>Pendientes para proyectar</label></div>
+                </div>
+                <div class="div-opcion boton-validar" (click)="irValidacion()">
+                    <div class="contador-opcion"><span>20</span></div>
+                    <div class="nombre-opcion"><label>Pendientes por validar</label></div>
+                </div>-->
+            </div>
+        </div>
+    </div>
+    <div class="back-custom">
+        <button  mat-flat-button (click)="back()" class="btn-vj-black rounded-sv">REGRESAR</button>
+    </div>
+</div>

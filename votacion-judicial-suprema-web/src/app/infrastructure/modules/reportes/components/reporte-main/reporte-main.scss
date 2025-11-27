@@ -1,0 +1,25 @@
+.reporte-content{
+    padding-top: 16px;
+    width: 720px;
+    margin: auto;
+    max-width: 100%;
+}
+.reporte-body{
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.reporte-acciones{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.btn-group{
+    display: flex;
+    gap: 8px;
+}
+.volver{
+    display: flex;
+    justify-content: flex-start;
+}

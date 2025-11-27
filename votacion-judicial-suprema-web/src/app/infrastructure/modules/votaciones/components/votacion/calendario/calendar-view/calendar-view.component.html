@@ -1,0 +1,64 @@
+<div class="calendar-container">
+  <mat-card class="calendar-card">
+    <!-- Header del calendario -->
+    <mat-card-header class="calendar-header">
+      <div class="header-controls">
+        <button mat-icon-button (click)="previousMonth()">
+          <mat-icon>chevron_left</mat-icon>
+        </button>
+
+        <span class="month-title">{{ monthName() | titlecase }}</span>
+
+        <button mat-icon-button (click)="nextMonth()">
+          <mat-icon>chevron_right</mat-icon>
+        </button>
+      </div>
+
+      <button mat-raised-button color="primary" (click)="goToToday()">
+        Hoy
+      </button>
+    </mat-card-header>
+
+    <!-- Contenido del calendario -->
+    <mat-card-content class="calendar-content">
+      <!-- Días de la semana -->
+      <div class="calendar-grid">
+        @for (day of weekDays; track $index) {
+          <div class="weekday-header">
+            {{ day }}
+          </div>
+        }
+
+        <!-- Días del mes -->
+        @for (day of calendarDays(); track day.getTime()) {
+          <div
+            [class]="getDayClass(day)"
+            (click)="onDayClick(day)"
+          >
+            <div class="day-number">
+              {{ day.getDate() }}
+            </div>
+
+            <!-- Chips de eventos -->
+            @if (hasEvents(day)) {
+              <div class="events-container">
+                <mat-chip-set class="event-chips">
+                  @for (votacion of getEventsForDay(day).slice(0, 2); track votacion.numeroRecurso) {
+                    <mat-chip class="event-chip">
+                      <span class="chip-text">{{ votacion.numeroRecurso }}</span>
+                    </mat-chip>
+                  }
+                  @if (getEventsForDay(day).length > 2) {
+                    <mat-chip class="more-chip">
+                      +{{ getEventsForDay(day).length - 2 }}
+                    </mat-chip>
+                  }
+                </mat-chip-set>
+              </div>
+            }
+          </div>
+        }
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

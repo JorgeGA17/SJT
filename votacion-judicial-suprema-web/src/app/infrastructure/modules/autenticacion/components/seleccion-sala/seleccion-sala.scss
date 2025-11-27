@@ -1,0 +1,129 @@
+@import '../../../../../global.scss';
+.content-login{
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    height: 100%;
+}
+.form-container{
+
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+.card-login{
+    height: 100%;
+    max-width: 460px;
+    background-color: transparent;
+    overflow: auto;
+    //padding: 30px 28px 0px 28px;
+}
+.login-welcome{
+  padding-top: 32px;
+}
+.perfil-content{
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+}
+.panel-perfil{
+    width: 350px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 32px;
+}
+.seleccion-perfil{
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.item-perfil {
+    border-radius: 8px;
+    cursor: pointer;
+    border: 2px solid $color-primary;
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    padding: 12px;
+}
+.item-perfil:hover {
+  background-color: $color-secondary;
+  -webkit-transition: background-color 200ms linear;
+  -ms-transition: background-color 200ms linear;
+  transition: background-color 200ms linear;
+
+  /*border: 5px double $color-pj-primary-50;
+    -webkit-transition: border 100ms linear;
+    -ms-transition: border 100ms linear;
+    transition: border 100ms linear;*/
+}
+.item-perfil.selected {
+  background-color: $color-primary;
+}
+
+.icon-perfil-comtent {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.perfil-desc{
+    display: flex;
+    flex-direction: column;
+}
+.title-perfil {
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 20px;
+}
+.description-perfil {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+}
+.item-perfil:hover .title-perfil {
+  color: white;
+}
+.item-perfil:hover .description-perfil {
+  color: white;
+}
+.item-perfil.selected .title-perfil {
+  color: white;
+}
+.item-perfil.selected .description-perfil {
+  color: white;
+}
+.item-perfil:hover .perfil-icon mat-icon,
+.item-perfil.selected .perfil-icon mat-icon{
+    color: white;
+}
+
+.perfil-icon{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.perfil-icon mat-icon{
+    font-size: 48px;
+    height: 48px;
+    width: 48px;
+}
+.title-selec-perfil {
+  font-size: 18px;
+  font-weight: 500;
+  text-align: center;
+  color: #333333;
+}
+.description-selec-perfil {
+  font-size: 16px;
+  text-align: center;
+  color: #888888;
+}
+@media (max-width: 576px) {
+.panel-perfil{
+    width: auto;
+}
+}

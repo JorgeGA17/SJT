@@ -1,0 +1,410 @@
+<app-navbar></app-navbar>
+<div class="main-container">
+    <div class="main-content">
+        <div #mc1 class="grid center">
+            <div class="center mt-4 w-100">
+                <span class="registro-title">CORTE SUPREMA DE JUSTICIA DE LA REPÚBLICA</span>
+            </div>
+            <div class="center w-100">
+                <span class="registro-title">{{nombreSalaUsuario||''}}</span>
+            </div>
+            <div class="col col-12 mt-4 divisor_subtitle">
+                <div class="centrar-componentes">
+                    <span class="registro-subtitle">PENDIENTES PARA PROYECTAR</span>     
+                </div>
+            </div>
+            <div class="custom-contenido centrar-componentes">
+                <div class="grid">
+                    <div class="filtro-proyectos">
+                        <div class="grid">
+                            <div class="center">
+                                <p-dropdown [options]="listaEstado" appendTo="body" [(ngModel)]="estadoSeleccionado" optionLabel="name"  [filter]="false" [showClear]="false" styleClass="w-auto" [style]="{width: '100%', height: '38px' }"></p-dropdown>
+                            </div>
+                        </div>                      
+                        <div class="grid container-filtro">
+                            <div class="p-float-label ">
+                                <p-calendar id="fechaini" [(ngModel)]="fechaInicioSel" [yearNavigator]="true" yearRange="2000:2030" [autoZIndex]="true" appendTo="body" dateFormat="dd/mm/yy" [monthNavigator]="true" [yearNavigator]="true" styleClass="input-filtro-custom" inputStyleClass="p-inputtext-sm input-pj input-filtro-custom" yearRange="1900:2030" inputId="fechaI" dataType="string" [showIcon]="false"></p-calendar>
+                                <label for="txt-fecha-fi">Fecha Inicio</label>
+                            </div>
+                        </div>
+                        <div class="grid container-filtro">
+                                <div class="p-float-label ">
+                                    <p-calendar id="fechafin" [(ngModel)]="fechaFinSel" [yearNavigator]="true" yearRange="2000:2030" [autoZIndex]="true" appendTo="body" dateFormat="dd/mm/yy" [monthNavigator]="true" [yearNavigator]="true" styleClass="input-filtro-custom" inputStyleClass="p-inputtext-sm input-pj input-filtro-custom" yearRange="1900:2030" inputId="fechaF" dataType="string" [showIcon]="false"></p-calendar>
+                                <label for="txt-fecha-ff">Fecha Fin</label>
+                            </div>
+                        </div>
+                        <!-- <div class="grid container-filtro-expediente">
+                            <div class="p-float-label ">
+                                <input type="text" class="p-inputtext-sm input2-pj " value="" [(ngModel)]="nroExpedienteSel" autocomplete="off" appendTo="body" pInputText> 
+                                <label for="txt-expediente">Expediente</label>
+                                </div>
+                            </div> -->
+                        <div class="grid ">
+                            <button type="button" pButton icon="pi pi-search"  label="Buscar" (click)="buscarPorFiltros()" [style]="{width: '100%', height: '38px' }" ></button>
+                        </div>
+                    </div>
+                    <div class="tabla-proyectos"  style="overflow: scroll;">
+                        <p-table *ngIf="existeTabla" [value]="listaProyectos" dataKey="numeroRecurso" (onRowExpand)="cargarDetalle($event)" rowExpandMode="single" class="p-datatable-sm tabla-custom" [tableStyle]="{'min-width': '50rem'}" 
+                        [rows]="5" [paginator]="true" responsiveLayout="scroll" [rowHover]="true" currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} registros" [showCurrentPageReport]="true" >
+                            <ng-template pTemplate="header">
+                                <tr>
+                                    <th class="col-centrar" ></th>
+                                    <th class="col-centrar" >N°</th>
+                                    <th class="col-centrar" >EXPEDIENTE</th>
+                                    <th class="col-centrar" >FECHA PROGRAMACIÓN</th>
+                                    <th class="col-centrar" >NRO. ENVIO</th>
+                                    <th class="col-centrar" >ESTADO PROYECTO</th>
+                                    <th class="col-centrar" >ESTADO VOTACIÓN</th>
+                                    <th class="col-centrar" >RESPONSABLE</th>
+                                    <th *ngIf="estadoActual!='1'" class="col-centrar" >DOCUMENTO</th>
+                                    <th class="col-centrar" >OPCIONES</th>
+                                    <th class="col-validaciones" >VALIDACIONES</th>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="body" let-expanded="expanded" let-pro let-i="rowIndex">
+                                <tr>
+                                    <td>
+                                        <button pButton pRipple type="button" [pRowToggler]="pro" class="btn-vj-customgray" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>
+                                    </td>                                
+                                    <td  class="col-conform">
+                                        {{ i + 1 }}
+                                    </td>
+                                    <td  class="col-conform">
+                                        {{pro.numeroRecurso}}
+                                    </td>
+                                    <td  class="col-conform">
+                                        {{pro.fechaFormateada}}
+                                    </td>
+                                    <td  class="col-conform">
+                                        {{pro.numeroEnvio}}
+                                    </td>                                    
+                                    <td  class="col-conform">
+                                        {{pro.estadoProyecto}}
+                                    </td>
+                                    <td  class="col-conform">
+                                        {{pro.estadoVotacion}}
+                                    </td>                                    
+                                    <td  class="col-conform">
+                                        {{pro.usuarioResponsable}}
+                                    </td>
+                                    <td *ngIf="estadoActual!='1'" class="col-verifica" >
+                                        <i *ngIf="pro.extension.toUpperCase() === 'PDF'"
+                                            class="pi pi-file-pdf"
+                                            style="color:red"
+                                            (click)="onPDFDownload(pro.uuidAlfresco)"></i>
+                                        <i *ngIf="pro.extension.toUpperCase() ==='DOCX' ||  pro.extension.toUpperCase() ==='DOC'"
+                                            class="pi pi-file-word"
+                                            style="color:blue"
+                                            (click)="onWORDDownload(pro.uuidAlfresco)"></i>
+                                    </td>                                    
+                                    <td >
+                                        <div class="documento-container">
+                                                <div>
+                                                    <button type="button" pButton icon="pi pi-eye"  label="VER" (click)="verTablilla(pro)"></button>
+                                                </div>
+                                                <div>
+                                                    <button *ngIf="estadoActual=='1'" type="button" pButton icon="pi pi-send"  label="SUBIR"  (click)="openDialogDoc(pro)"></button>
+                                                </div>
+                                        </div>
+                                    </td>
+                                    <td class="col-conform ml-2">
+                                        <p-chips *ngIf="pro.validaciones" [(ngModel)]="pro.validaciones" readonly (keydown)="preventBackspace($event)" [disabled]="false" (onChipClick)="mostrarObservacion($event)" [max]=4>
+                                            <ng-template  let-item pTemplate="item">
+                                                <div *ngIf="item.nvalidado == 1" class="chip-custom" style="color:green">{{ item.iniciales?item.iniciales.trim():'' }}<i class="pi pi-check-circle" ></i></div> 
+                                                <div *ngIf="item.nvalidado == 2" class="chip-custom" style="color:#d10000">{{ item.iniciales?item.iniciales.trim():'' }}<i class="pi pi-info-circle" ></i></div> 
+                                                <div *ngIf="item.nvalidado == 0" class="chip-custom" style="color:gray">{{ item.iniciales?item.iniciales.trim():'' }}<i class="pi pi-minus-circle" ></i></div> 
+                                            </ng-template>
+                                        </p-chips>
+                                    </td>                                                                    
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="rowexpansion" let-pro>
+                                <tr>
+                                    <td colspan="7">
+                                        <div class="p-3">
+                                            <p-table [value]="listaRelacionados" dataKey="numeroRecurso">
+                                                <ng-template pTemplate="header">
+                                                    <tr>
+                                                        <th class="col-centrar">N°</th>
+                                                        <th class="col-centrar">EXPEDIENTE</th>
+                                                        <th class="col-centrar">FECHA PROGRAMACIÓN</th>
+                                                        <th class="col-centrar" >ESTADO PROYECTO</th>
+                                                        <th class="col-centrar" >ESTADO VOTACIÓN</th>
+                                                        <th class="col-centrar">RESPONSABLE</th>
+                                                        <th class="col-centrar">DOCUMENTO</th>
+                                                        <!-- <th >OPCIONES</th> -->
+                                                    </tr>
+                                                </ng-template>
+                                                <ng-template pTemplate="body" let-exp let-a="rowIndex">
+                                                    <tr>
+                                                        <td >
+                                                            {{ a + 1 }}
+                                                        </td>
+                                                        <td >
+                                                            {{exp.numeroRecurso}}
+                                                        </td>
+                                                        <td >
+                                                            {{exp.fechaFormateada}}
+                                                        </td>
+                                                        <td  class="col-conform">
+                                                            {{exp.estadoProyecto}}
+                                                        </td>
+                                                        <td  class="col-conform">
+                                                            {{exp.estadoVotacion}}
+                                                        </td> 
+                                                        <td >
+                                                            {{exp.usuarioResponsable}}
+                                                        </td>
+                                                        <td class="col-verifica" >
+                                                            <i *ngIf="exp.extension.toUpperCase() === 'PDF'"
+                                                                class="pi pi-file-pdf"
+                                                                style="color:red"
+                                                                (click)="onPDFDownload(exp.uuidAlfresco)"></i>
+                                                            <i *ngIf="exp.extension.toUpperCase() ==='DOCX' ||  exp.extension.toUpperCase() ==='DOC'"
+                                                                class="pi pi-file-word"
+                                                                style="color:blue"
+                                                                (click)="onWORDDownload(exp.uuidAlfresco)"></i>
+                                                        </td>                                                           
+                                                        <!-- <td><p-button type="button" icon="pi pi-plus"></p-button></td> -->
+                                                    </tr>
+                                                </ng-template>
+                                                <ng-template pTemplate="emptymessage">
+                                                    <tr>
+                                                        <td colspan="6">No existen registros relacionados.</td>
+                                                    </tr>
+                                                </ng-template>
+                                            </p-table>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </ng-template>                        
+                        </p-table>
+                    </div>
+                </div>   
+                <div class="back-custom">
+                    <button pButton pRipple type="button" label="REGRESAR" (click)="back()" icon="pi pi-arrow-left" iconPos="right"  class="btn-vj-black rounded-sv"></button>
+                </div>
+            </div>
+        </div>    
+    </div>
+    <app-footer></app-footer>
+</div>
+
+<p-dialog header="VISUALIZAR TABLILLA" [(visible)]="dialogTab" (onHide)="onDialogHide()" [style]="{width: 'auto'}" [modal]="true" styleClass="dialog-primary">
+    <div class="panel-content centrar-componentes" >
+        <div class="container-grupo-data">
+            <div class="container-subgrupo">
+                <div class="container-data-origen">
+                    <span class="label-grupo-data">Juzgado de Origen</span>
+                    <div class="grupo-data-origen">
+                        <input id="disabled-input" class="data-maestra data-origen descProceso" type="text" pInputText [disabled]="true" value="{{this.tablillaPro.descProceso}}" pTooltip="{{this.tablillaPro.descProceso}}" />
+                        <input id="disabled-input" class="data-maestra data-origen descActoProcesal" type="text" pInputText [disabled]="true" value="{{this.tablillaPro.descActoProcesalJuez}} FJS. {{this.tablillaPro.fojasJuez}}" pTooltip="{{this.tablillaPro.descActoProcesalJuez}} FJS. {{this.tablillaPro.fojasJuez}}"/>
+                        <input id="disabled-input" class="data-maestra data-origen" type="text" pInputText [disabled]="true" value="{{this.tablillaPro.descFalloJuez}}" pTooltip="{{this.tablillaPro.descFalloJuez}}" />
+                    </div>
+                </div>
+                <div class="container-data-origen">
+                    <span class="label-grupo-data">Sala de Procedencia</span>
+                    <div class="grupo-data-origen">
+                        <input id="disabled-input"  class="data-maestra data-procedencia descActoProcesal" type="text" pInputText [disabled]="true" value="{{this.tablillaPro.descActoProcesalProcedencia}} FJS. {{this.tablillaPro.fojasOrigenProcedencia}}"  pTooltip="{{this.tablillaPro.descActoProcesalProcedencia}} FJS. {{this.tablillaPro.fojasOrigenProcedencia}}"/>
+                        <input id="disabled-input"  class="data-maestra data-procedencia" type="text" pInputText [disabled]="true" value="{{this.tablillaPro.descFalloProcedencia}}" pTooltip="{{this.tablillaPro.descFalloProcedencia}}"/>
+                    </div>                            
+                </div>                            
+            </div>
+            <div class="container-subgrupo">
+                <div class="container-data-magistrado">
+                    <span class="label-grupo-data">Magistrados</span>
+                    <div class="grupo-data">
+                        <input id="disabled-input" class="data-magistrados data-maestra" type="text" pInputText [disabled]="true" value="{{this.tablillaPro.magistrado1}}" [ngClass]="{'highlighted': this.tablillaPro.magistrado1Flag==='S'}" pTooltip="{{this.tablillaPro.magistrado1}}"/>
+                        <input id="disabled-input" class="data-magistrados data-maestra" type="text" pInputText [disabled]="true" value="{{this.tablillaPro.magistrado2}}" [ngClass]="{'highlighted': this.tablillaPro.magistrado2Flag==='S'}" pTooltip="{{this.tablillaPro.magistrado2}}"/>
+                        <input id="disabled-input" class="data-magistrados data-maestra" type="text" pInputText [disabled]="true" value="{{this.tablillaPro.magistrado3}}" [ngClass]="{'highlighted': this.tablillaPro.magistrado3Flag==='S'}" pTooltip="{{this.tablillaPro.magistrado3}}"/>                                
+                        <input id="disabled-input" class="data-magistrados data-maestra" type="text" pInputText [disabled]="true" value="{{this.tablillaPro.magistrado4}}" [ngClass]="{'highlighted': this.tablillaPro.magistrado4Flag==='S'}" pTooltip="{{this.tablillaPro.magistrado4}}"/>
+                        <input id="disabled-input" class="data-magistrados data-maestra" type="text" pInputText [disabled]="true" value="{{this.tablillaPro.magistrado5}}" [ngClass]="{'highlighted': this.tablillaPro.magistrado5Flag==='S'}" pTooltip="{{this.tablillaPro.magistrado5}}"/>
+                    </div>                            
+                </div>
+                <div class="container-data-magistrado">
+                    <span class="label-grupo-data">Impedimentos</span>
+                    <div class="grupo-data">
+                        <input id="disabled-input" class="data-magistrados data-maestra" type="text" pInputText [disabled]="true" value="{{this.tablillaPro.impedimento1}}" [ngClass]="{'highlighted': this.tablillaPro.impedimento1Flag==='S'}" pTooltip="{{this.tablillaPro.impedimento1}}"/>
+                        <input id="disabled-input" class="data-magistrados data-maestra" type="text" pInputText [disabled]="true" value="{{this.tablillaPro.impedimento2}}" [ngClass]="{'highlighted': this.tablillaPro.impedimento2Flag==='S'}" pTooltip="{{this.tablillaPro.impedimento2}}"/>
+                        <input id="disabled-input" class="data-magistrados data-maestra" type="text" pInputText [disabled]="true" value="{{this.tablillaPro.impedimento3}}" [ngClass]="{'highlighted': this.tablillaPro.impedimento3Flag==='S'}" pTooltip="{{this.tablillaPro.impedimento3}}"/>                                
+                        <input id="disabled-input" class="data-magistrados data-maestra" type="text" pInputText [disabled]="true" value="{{this.tablillaPro.impedimento4}}" [ngClass]="{'highlighted': this.tablillaPro.impedimento4Flag==='S'}" pTooltip="{{this.tablillaPro.impedimento4}}"/>
+                        <input id="disabled-input" class="data-magistrados data-maestra" type="text" pInputText [disabled]="true" value="{{this.tablillaPro.impedimento5}}" [ngClass]="{'highlighted': this.tablillaPro.impedimento5Flag==='S'}" pTooltip="{{this.tablillaPro.impedimento5}}"/>
+                    </div>                            
+                </div>                            
+            </div>
+        </div>
+        <div class="container-grupo-materias">
+            <div class="container-materias">
+                <p-panel header="MATERIAS" [collapsed]="true" class="materiaC" [toggleable]="true">
+                    <ul>
+                        <li class="label-grupo-data" *ngFor="let item of this.tablillaPro.materias">{{ item.xmateria }}</li>
+                        <li *ngIf="!this.tablillaPro.materias || this.tablillaPro.materias.length === 0" class="label-grupo-data">
+                            NO EXISTEN MATERIAS REGISTRADAS.
+                        </li>
+                    </ul>
+                </p-panel>
+            </div>
+            <div class="container-materias">
+                <p-panel header="CAUSALES" [collapsed]="true" class="materiaC" [toggleable]="true">
+                    <ul>
+                        <li class="label-grupo-data" *ngFor="let item of this.tablillaPro.causales">{{ item }}</li>
+                        <li *ngIf="!this.tablillaPro.causales || this.tablillaPro.causales.length === 0" class="label-grupo-data">
+                            NO EXISTEN CAUSALES REGISTRADAS.
+                        </li>
+                    </ul>
+                </p-panel>
+            </div>
+        </div> 
+    </div>        
+    <div class="centrar-componentes-tabla">
+        <div class="container-grupo container-tabla">
+            <div class="tabla-recurrentes"  style="overflow: scroll;">
+                <p-table [value]="tablillaPro.recurrentes" class="p-datatable-sm tabla-custom" [tableStyle]="{'min-width': '50rem'}" >
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th class="col-tipo">TIPO PARTE</th>
+                            <th class="col-tipo">NOMBRE</th>
+                            <th class="col-sentido">SENTIDO</th>
+                            <th class="col-sentido">FALLO</th>
+                            <th class="col-sentido">DISCORDIA</th>
+                            <th class="col-anotacion">EFECTOS DEL SENTIDO</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-parte>
+                        <tr [ngClass]="{'disableClass': parte.lrecurrente!=='S'}">
+                            <td class="col-tipo">
+                                {{parte.ltipoParte}}
+                            </td>
+                            <td class="col-parte">
+                                {{parte.nombreParte}}
+                            </td>
+                            <td class="col-sentido">
+                                <p-dropdown [options]="listaVacia" *ngIf="parte.lrecurrente=='S'" [disabled]="true" [placeholder]="parte.sentido.xsentido" optionLabel="xsentido" class="custom-dropdown" [style]="{'width':'100%'}" appendTo="body"></p-dropdown>
+                            </td>
+                            <td class="col-sentido">
+                                <p-dropdown [options]="listaVacia" *ngIf="parte.lrecurrente=='S'" [disabled]="true"  [placeholder]="parte.fallo.xfallo"  optionLabel="xfallo" class="custom-dropdown" [style]="{'width':'100%'}" appendTo="body"></p-dropdown>
+                            </td>
+                            <td class="col-sentido">
+                                <div class="discordia-container" *ngIf="parte.lrecurrente=='S'">
+                                    <form class="discordia-form" #myForm="ngForm">
+                                        <div>
+                                            <button type="button" pButton icon="pi pi-plus" [disabled]="true" label="" class="discordia-boton" ></button>
+                                        </div>
+                                        <div class="selected-options">
+                                            <p-chips class="" [disabled]="true" [(ngModel)]="parte.discordias" field="iniciales" name="magistradoSeleccionado"></p-chips>
+                                        </div>
+                                    </form>
+                                </div>
+                            </td>
+                            <td class="col-anotacion" >
+                                <!-- <input id="disabled-input" *ngIf="parte.lrecurrente=='S'" class="data-input-recurrente" type="text" [disabled]="true" [(ngModel)]="parte.xobservacion"  [maxlength]="255" pInputText/> -->
+                                <p-overlayPanel class="overlay-custom" #op>
+                                    <div class="apuntes-container">
+                                        <textarea id="disabled-input" *ngIf="parte.lrecurrente=='S'" class="data-input-recurrente" [disabled]="true" [(ngModel)]="parte.xobservacion" rows="10" cols="80" [maxlength]="1500"></textarea>
+                                    </div>
+                                </p-overlayPanel>
+                                <div class="container-boton-anotaciones">
+                                    <p-button icon="pi pi-file-edit" *ngIf="parte.lrecurrente=='S'" label="" class="efectos-boton" (click)="op.toggle($event)"></p-button>
+                                </div>                                  
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>                            
+        </div>
+    </div>
+    <div class="container-grupo-jurisprudencia">
+        <div class="subcontainer-jurisprudencia">
+            <p-panel header="Búsqueda de Jurisprudencia" class="jurisprudenciaC" [toggleable]="true">
+                <div class="flex-column">
+                    <div class="container-opciones-busq">
+                        <div class="flex align-items-center">
+                            <p-radioButton name="opcionPJ" value="PJ" [(ngModel)]="tipoBusquedaJuris" [disabled]="true" inputId="opcionPJ"></p-radioButton>
+                            <label for="opcionPJ" class="ml-2">Poder Judicial</label>
+                        </div>
+                        <div class="flex align-items-center">
+                            <p-radioButton name="opcionTC" value="TC" [(ngModel)]="tipoBusquedaJuris" [disabled]="true" inputId="opcionTC"></p-radioButton>
+                            <label for="opcionTC" class="ml-2">Tribunal Constitucional</label>
+                        </div>
+                        <div class="flex align-items-center">
+                            <p-radioButton name="opcionTF" value="TF" [(ngModel)]="tipoBusquedaJuris" [disabled]="true" inputId="opcionTF"></p-radioButton>
+                            <label for="opcionTF" class="ml-2">Tribunal Fiscal</label>
+                        </div>
+                    </div>
+                    <div class="jurisprudencia-buscador mt-4">
+                        <div class="p-inputgroup">
+                            <div class="p-float-label pt-2">
+                                <input id="txt-num-doc" type="text" class="p-inputtext-sm input2-pj" value="" [(ngModel)]="busqJurisprudencia" [disabled]="true" autocomplete="off" pInputText> 
+                                <label for="txt-num-doc">Nro. Casación (Ejm. 2030-2016)</label>
+                            </div>
+                            <button pButton pRipple type="button" label="" icon="pi pi-search" [disabled]="true" iconPos="left"  class="p-button-sm btn-pj mt-2 px-5"></button>
+                        </div>
+                    </div>
+                    <p-pickList [source]="documentosEncontrados" [target]="documentosAdjuntos" sourceHeader="RESULTADO" targetHeader="ADJUNTAR" [dragdrop]="false" [responsive]="true" [sourceStyle]="{ height: '10rem' }"
+                        filterBy="recurso" [showSourceFilter]="false" [showTargetFilter]="false" breakpoint="600px">
+                        <ng-template let-doc pTemplate="item">
+                            <div class="container-resultado-juris">
+                                <div>
+                                    <span class="font-bold">{{ doc.recurso }}</span>
+                                </div>
+                                <div>
+                                    <span class="font-bold">({{ doc.nombreEntidad }})</span>
+                                </div>                                                
+                                <div class="grid center zclass">
+                                    <i (click)="previewDoc(doc.uuid,doc.nombreEntidad)" class="pi pi-file-pdf ml-1 pr-2"></i>
+                                </div>
+                            </div>
+                        </ng-template>
+                    </p-pickList>
+                </div>
+            </p-panel>
+            <div class="apuntes-container">
+                <span class="label-grupo-data">MIS APUNTES :</span>
+                <!--<textarea class="custom-textarea" [(ngModel)]="tablillaPro.apuntes" [disabled]="true" rows="18" cols="80" pInputTextarea></textarea>-->
+                <p-editor [(ngModel)]="tablillaPro.apuntes" [style]="{ height: '400px' }"  [disabled]="true"  [readonly]="true">
+                    <ng-template pTemplate="header">
+                       
+                    </ng-template>
+                </p-editor>
+            </div>
+        </div>
+        <div class="container-grupo mt-5 mb-4">
+            <div class="flex align-items-center">
+                <p-checkbox name="groupname" [binary]="true" label="AL VOTO" value="false" [disabled]="true" ></p-checkbox>
+            </div>
+        </div>                                                
+    </div>
+</p-dialog>
+
+<p-dialog header="ENVIAR DOCUMENTO" [(visible)]="dialogDoc" (onHide)="onDialogDocHide()" [style]="{width: 'auto'}"
+    [modal]="true" styleClass="dialog-primary">
+    <div class="grid">
+        <div class="col-12 mt-3 center">
+            <input *ngIf="dialogDoc" type="file" accept=".pdf,.doc,.docx" (change)="selectDocumento($event)" />
+        </div>
+        <div class="col-12 mt-3 center">
+            <button type="button" pButton icon="pi pi-send" [disabled]="!existeDocumento" label="Grabar" (click)="enviarDocumento()"></button>
+        </div>
+        <!-- <div class="col-12 flex justify-content-center" *ngIf="preview!==''">
+            <iframe [src]="preview" width="100%" height="400px"></iframe>
+        </div> -->
+    </div>
+</p-dialog>
+
+<p-dialog header="OBSERVACIÓN" [(visible)]="displayObs" (onHide)="hideObservacion()" [style]="{width: 'auto'}"
+    [modal]="true" styleClass="dialog-primary">
+    <div class="grid container-dialog">
+        <div class="col-12 mt-2">
+            <div class="obs-custom">
+                <label>{{observacionGrupo}}</label>    
+            </div>
+        </div>
+        <div class="col-12 center pb-0">
+            <button type="button" pButton icon="pi pi-times" label="Cerrar" (click)="hideObservacion()"></button>
+        </div>
+    </div>
+</p-dialog>
+
+<p-dialog header="Vista previa del PDF" [(visible)]="displayModal" [modal]="true" [style]="{width: '1000px', height: '650px' }" styleClass="dialog-primary">
+    <iframe *ngIf="pdfSafeUrl" [src]="pdfSafeUrl"  width="100%" height="100%"></iframe>
+</p-dialog>

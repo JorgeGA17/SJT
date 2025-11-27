@@ -1,0 +1,51 @@
+<div class="navigation-container">
+  <!-- Datepicker fijo en la parte superior -->
+  <div class="datepicker-section">
+    <mat-card class="datepicker-card">
+      <mat-calendar
+        [selected]="selectedDate()"
+        (selectedChange)="onDateChange($event)"
+        [dateFilter]="dateFilter"
+        [dateClass]="dateClass"
+      ></mat-calendar>
+    </mat-card>
+  </div>
+
+  <!-- Lista scrollable de votaciones -->
+  <div class="votaciones-list">
+    <div class="list-header">
+      <h3>Votaciones del día</h3>
+      <span class="count-badge">{{ votacionesDelDia().length }}</span>
+    </div>
+
+    <div class="list-content">
+      <mat-card
+        *ngFor="let votacion of votacionesDelDia()"
+        class="votacion-card"
+        [class.selected]="isSelected(votacion)"
+        (click)="selectVotacion(votacion)"
+      >
+        <mat-card-header>
+          <mat-card-title>{{ votacion.expediente }}</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <div class="votacion-info">
+            <div class="info-row">
+              <span class="label">Fecha:</span>
+              <span class="value">{{ votacion.fecha | date: 'short' }}</span>
+            </div>
+            <div class="info-row">
+              <span class="label">Ponente:</span>
+              <span class="value">{{ votacion.ponente }}</span>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+
+      <!-- Mensaje cuando no hay votaciones -->
+      <div *ngIf="votacionesDelDia().length === 0" class="no-votaciones">
+        <p>No hay votaciones programadas para esta fecha</p>
+      </div>
+    </div>
+  </div>
+</div>

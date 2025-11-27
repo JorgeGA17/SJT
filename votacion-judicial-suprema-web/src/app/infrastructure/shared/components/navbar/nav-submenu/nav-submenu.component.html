@@ -1,0 +1,26 @@
+@if (menuOpciones) {
+    <button mat-button 
+    [ngClass]="{'nav-pj-it': primerNivel}" 
+    [matMenuTriggerFor]="submenu">
+        <span>{{menuOpciones.label}}</span>
+        <mat-icon>keyboard_arrow_down</mat-icon>
+    </button>
+    <mat-menu #submenu="matMenu">
+        @for (item of menuOpciones.items; track $index) {
+            @if (!item.items || item.items.length == 0) {
+                <a mat-menu-item  
+                    [ngClass]="{'menu-it-selected': item.selected}"
+                    [routerLink]="item.routeLink"
+                    (click)="item?.command?.($event)">
+                    @if (item.icon && item.icon.trim().length > 0) {
+                        <mat-icon>{{item.icon}}</mat-icon>
+                    }
+                    <span>{{item.label}}</span>
+                </a>
+            }
+            @else {
+                <app-nav-submenu [menuOpciones]="item"></app-nav-submenu>
+            }
+        }
+    </mat-menu>
+}

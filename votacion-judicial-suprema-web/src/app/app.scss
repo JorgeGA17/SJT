@@ -1,0 +1,570 @@
+@import 'global.scss';
+@import url("https://fonts.googleapis.com/icon?family=Material+Icons|Material+Icons+Outlined");
+::ng-deep .hidden{
+    display: none !important;
+}
+
+/******************************************************/
+/********************** MT BUTTONS ********************/
+::ng-deep .pj-btn-flat-sm{
+    background-color: $color-primary !important;
+    border-radius: 8px !important;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 19px;
+    text-align: left;
+    height: 28px !important;
+}
+
+::ng-deep .pj-btn-flat{
+    background-color: $color-primary !important;
+    border-radius: 12px !important;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 19px;
+    text-align: left;
+    height: 40px !important;
+}
+::ng-deep .pj-btn-flat:disabled{
+    background-color: $color-cuaternary !important;
+}
+::ng-deep .pj-btn-fab{
+    height: 40px !important;
+    border-radius: 8px !important;
+}
+::ng-deep .mt-btn-flat-icon{
+    color: $color-neutral-n0 !important;
+    border-radius: 4px !important;
+    padding: 8px !important;
+    text-align: center;
+    min-width: auto !important;
+}
+
+::ng-deep .flat-icon{
+    font-size: 28px !important;
+    height: auto !important;
+    width: auto !important;
+}
+::ng-deep .btn-mt{
+    margin: auto;
+    width: 160px;
+    height: 40px;
+    padding: 12px 16px 12px 16px;
+    gap: 8px;
+    border-radius: 4px !important;
+    background-color: $color-active !important;
+    color: $color-neutral-n0 !important;
+}
+::ng-deep .btn-mt[disabled]{
+    color: $color-neutral-n0 !important;
+    background-color: $color-inactive !important;
+}
+::ng-deep .btn-outline-mt{
+    margin: auto;
+    width: 148px;
+    height: 40px;
+    padding: 12px 16px 12px 16px;
+    gap: 8px;
+    border-radius: 4px !important;
+    background-color: transparent !important;
+    border: 1px solid $color-active !important;
+    color: $color-active !important;
+}
+/*******************  FEB  *******************/
+::ng-deep .mat-mdc-mini-fab {
+    background-color: $color-primary-p100 !important;
+    color: #FFF !important;
+}
+/******************************************************/
+/********************** MT SELECT ********************/
+
+::ng-deep .mat-mdc-select {
+    font-size: 12px !important;
+    font-weight: 400 !important;
+    line-height: 14px !important;
+    text-align: left !important;
+    color: $color-primary-p100 !important;
+}
+/*
+::ng-deep .mat-mdc-select-arrow{
+    display: none;
+}
+::ng-deep .select-mt .mat-mdc-select-trigger::after {
+    content:  url('./../../public/assets/img/icons/arrow-down/arrow-down_SM_select.svg');
+    width: 16px;
+    position: absolute;
+    right: 0px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+}*/
+::ng-deep .select-mt-hidden .mat-mdc-select-trigger::after {
+    display: none !important; // ocultar
+}
+
+::ng-deep div.mat-mdc-select-panel{
+    background-color: $color-neutral-n0 !important;
+}
+
+::ng-deep .mat-mdc-option{
+    min-height: 40px !important;
+}
+
+::ng-deep .mat-mdc-option .mdc-list-item__primary-text {
+    font-size: 12px !important;
+    font-weight: 400 !important;
+    line-height: 14px !important;
+    text-align: left !important;
+    color: $color-primary-p100 !important;
+}
+
+/******************************************************/
+/********************** MT RADIO BUTTON ********************/
+
+::ng-deep .mat-mdc-radio-button .mdc-radio__native-control:enabled:checked+.mdc-radio__background .mdc-radio__outer-circle,::ng-deep .mat-mdc-radio-button .mdc-radio__native-control:enabled:checked+.mdc-radio__background .mdc-radio__inner-circle {
+    border-color: $color-primary-p100 !important;
+}
+
+::ng-deep .mat-mdc-radio-button .mdc-radio__native-control:enabled:not(:checked)+.mdc-radio__background .mdc-radio__outer-circle {
+    border-color: $color-primary-p100 !important;
+}
+
+::ng-deep .mat-mdc-radio-button .mat-internal-form-field{
+    color: $color-primary-p100 !important;
+}
+
+::ng-deep .mat-mdc-radio-button .mdc-radio__outer-circle{
+    border-width: 1px !important;
+}
+
+
+/******************************************************/
+/********************** LOGIN VALIDATORS FORM ********************/
+
+::ng-deep .line{
+    height: 1px;
+    width: 100%;
+    background-color: $color-cuaternary;
+}
+
+::ng-deep .center{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+::ng-deep .pt-16{
+    padding-top: 16px;
+}
+::ng-deep .w-100{
+    width: 100%;
+}
+
+::ng-deep .login-welcome{
+    padding: 8px 0px 0px 0px;
+    text-align: center;
+    font-size: 28px;
+    font-weight: 500;
+    line-height: 28px;
+    color: $color-primary;
+}
+::ng-deep .login-text{
+    padding: 0px 0px 8px 0px;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 19px;
+    text-align: center;
+    color: $color-primary;
+}
+
+::ng-deep .login-text-left{
+    padding: 0px 0px 8px 0px;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 15px;
+    text-align: left;
+    color: $color-primary;
+}
+::ng-deep .login-text-left-pass-valid{
+    padding: 4px 0px 0px 0px !important;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 15px;
+    text-align: left;
+    color: $color-primary-p60;
+    display: flex;
+    align-items: center;
+}
+::ng-deep .login-text-left-pass-valid.validated{
+    color: $color-state-done !important;
+}
+::ng-deep .icon-valid-pass{
+    font-size: 20px;
+    line-height: 20px;
+    font-weight: 400;
+    height: 20px;
+}
+
+/******************************************************/
+/********************** MT INPUT ********************/
+
+::ng-deep .mdc-text-field--outlined  .mat-mdc-notch-piece.mdc-notched-outline__leading{
+    border-top-left-radius: 4px !important;
+    border-bottom-left-radius: 4px !important;
+    border-color: $color-primary-p60 !important;
+    height: 40px !important;
+
+}
+::ng-deep .mdc-text-field--outlined  .mat-mdc-notch-piece.mdc-notched-outline__trailing{
+    border-top-right-radius: 4px !important;
+    border-bottom-right-radius: 4px !important;
+    border-color: $color-primary-p60 !important;
+    height: 40px !important;
+
+}
+::ng-deep .mdc-text-field--outlined  .mat-mdc-notch-piece.mdc-notched-outline__notch{
+   
+}
+::ng-deep .mdc-text-field--outlined .mdc-notched-outline {
+    z-index: 0 !important;
+    background-color: $color-neutral-n0 !important;
+}
+::ng-deep .mdc-text-field--outlined.mdc-text-field--disabled .mat-mdc-notch-piece {
+    background: $color-primary-p20 !important;
+}
+
+::ng-deep .mat-mdc-form-field-infix{
+    padding: 12px 4px !important;
+    //line-height: 16px !important;
+    //font-size: 16px !important;
+    line-height: 14px !important;
+    font-size: 12px !important;
+    height: 40px !important;
+    min-height: 40px !important;
+    width: auto !important;
+}
+::ng-deep .mat-mdc-form-field-infix>input{
+    //font-size: 16px !important;
+    //line-height: 16px !important;
+    font-size: 12px !important;
+    line-height: 14px !important;
+    color: $color-primary-p100 !important;
+    caret-color:  $color-primary-p60 !important;
+    
+}
+
+::ng-deep .mat-mdc-form-field-infix>input[type="password"]{
+    /*-webkit-text-security: disc !important;
+    font-size: 48px !important;
+    line-height: 16px;
+    letter-spacing: 3px !important;*/
+}
+::ng-deep .mat-mdc-form-field-infix>input:not(:focus)::placeholder{
+    //font-size: 16px !important;
+    //line-height: 16px !important;
+    font-size: 12px !important;
+    line-height: 14px !important;
+    color: $color-primary-p60 !important;
+    caret-color:  $color-primary-p60 !important;
+
+   /*]font-size: 12px !important;
+    font-weight: 400 !important;
+    line-height: 16px !important;*/
+
+}
+::ng-deep .mat-mdc-form-field-infix>input:focus::placeholder{
+    //font-size: 16px !important;
+    //line-height: 16px !important;
+    font-size: 12px !important;
+    line-height: 14px !important;
+    color: $color-primary-p60 !important;
+    caret-color:  $color-primary-p60 !important;
+
+   /*]font-size: 12px !important;
+    font-weight: 400 !important;
+    line-height: 16px !important;*/
+
+}
+::ng-deep .btn-show-password{
+    color: $color-primary-p60 !important;
+}
+::ng-deep .mat-mdc-text-field-wrapper .mat-mdc-form-field-flex .mat-mdc-floating-label {
+    top: 18px !important;
+}
+
+::ng-deep .mat-mdc-text-field-wrapper.mdc-text-field--outlined .mdc-notched-outline--upgraded .mdc-floating-label--float-above {
+    --mat-mdc-form-field-label-transform: translateY(calc(calc(6.75px + 40px / 2)* -1)) scale(var(--mat-mdc-form-field-floating-label-scale, 0.9)) !important;
+    transform: var(--mat-mdc-form-field-label-transform);
+}
+//---
+/******************************************************/
+/********************** MT CHECKBOX ********************/
+::ng-deep .mdc-checkbox__native-control:focus:focus:checked~.mdc-checkbox__background,::ng-deep  .mdc-checkbox__native-control:focus:focus:indeterminate~.mdc-checkbox__background {
+    border-color: $color-primary-p40 !important;
+    background-color: $color-neutral-n0 !important;
+}
+::ng-deep .mdc-checkbox__native-control:enabled:checked~.mdc-checkbox__background,::ng-deep  .mdc-checkbox__native-control:enabled:indeterminate~.mdc-checkbox__background {
+    border-color:  $color-primary-p40 !important;
+    background-color :$color-neutral-n0 !important;
+}
+::ng-deep .mat-mdc-checkbox .mat-internal-form-field{
+    color: $color-primary-p100 !important;
+    font-size: 12px !important ;
+    font-weight:  400 !important;
+    line-height: 16px !important;
+    text-align: left !important;
+
+}
+
+::ng-deep .mdc-checkbox__checkmark{
+    color: $color-primary-p100 !important;
+}
+
+::ng-deep .mat-mdc-checkbox.mat-mdc-checkbox-disabled label {
+    color: $color-primary-p60 !important;
+}
+
+::ng-deep .mdc-checkbox__native-control:disabled:checked~.mdc-checkbox__background,::ng-deep .mdc-checkbox__native-control:disabled:indeterminate~.mdc-checkbox__background {
+    background-color: $color-neutral-n0 !important;
+    border-color: $color-primary-p40 !important;
+}
+
+//-------------------
+::ng-deep .link-terminos{
+    color: $color-primary-p100 !important;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 20px;
+    text-align: left;
+    text-decoration: none;
+}
+
+/******************************************************/
+/********************** MT TABS ********************/
+
+::ng-deep .mdc-tab {
+    padding: 0px 0px !important;
+}
+
+::ng-deep .mat-mdc-tab .mdc-tab-indicator__content--underline {
+    border-color: $color-active !important;
+    border-top-width: 4px !important;
+    border-radius: 0px !important;
+}
+::ng-deep .mat-mdc-tab.mdc-tab--active:hover .mdc-tab-indicator__content--underline {
+    border-color: $color-active !important;
+}
+::ng-deep .mat-mdc-tab.mdc-tab--active:focus .mdc-tab-indicator__content--underline {
+    border-color: $color-active !important;
+}
+
+::ng-deep .mat-mdc-tab-label-container {
+    border-bottom-style: none !important;
+    border-bottom-width: none !important;
+    border-bottom-color: none !important;
+}
+::ng-deep .mat-mdc-tab .mdc-tab__content {
+    height: 56px !important;
+    padding: 0px 24px !important;
+}
+::ng-deep .mat-mdc-tab-labels {
+    height: 56px !important;
+}
+::ng-deep .mat-mdc-tab.mdc-tab {
+    height: 56px !important;
+}
+
+::ng-deep .mat-mdc-menu-panel {
+    /*min-width: 112px;
+    max-width: 280px;
+    width: 240px;*/
+    border-radius: 0px !important;
+    background-color: $color-neutral-n0 !important;
+}
+::ng-deep .mat-mdc-nav-list .mat-mdc-list-item {
+    border-radius: 0px !important;
+}
+::ng-deep mat-list-item.mdc-list-item {
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+}
+/*****************************************************/
+/******************* TOOGLE  *************************/
+::ng-deep .mdc-switch:enabled:hover:not(:focus):not(:active) .mdc-switch__track::after {
+    background: $color-active !important;
+}
+::ng-deep .mdc-switch__track::after{
+    background: $color-active !important;
+}
+
+/*****************************************************/
+/***************** DATEPICKER **********************/
+::ng-deep .mat-datepicker-content{
+    background-color: $color-neutral-n0 !important;
+    box-shadow:  0px 3px 5px -1px rgba(0, 0, 0, 0.2), 0px 6px 10px 0px rgba(0, 0, 0, 0.14), 0px 1px 18px 0px rgba(0, 0, 0, 0.12) !important;
+}
+/*****************************************************/
+/***************** AUTOCOMPLETE **********************/
+::ng-deep .mat-mdc-autocomplete-panel {
+    background-color: $color-neutral-n0 !important;
+}
+/*****************************************************/
+/***************** TEXTAREA **********************/
+/*::ng-deep .textarea-mt .mdc-text-field--outlined  .mat-mdc-notch-piece.mdc-notched-outline__leading{
+
+    height: auto !important;
+
+}
+::ng-deep .textarea-mt .mdc-text-field--outlined  .mat-mdc-notch-piece.mdc-notched-outline__trailing{
+    height: auto !important;
+
+}
+
+::ng-deep .textarea-mt .mat-mdc-form-field-infix{
+    height: auto !important;
+}*/
+/*******************************************/
+/**************** DIALOG *******************/
+::ng-deep .mat-mdc-dialog-surface{
+    border-radius: 4px !important;
+} 
+
+//*************************************************************************
+//********************* login validacion *******************
+::ng-deep .login-space{
+    width: 100%;
+    height: 120px;
+}
+
+::ng-deep .login-response-error{
+    display: flex;
+    align-items: center;
+    padding: 8px;
+    margin-bottom:16px ;
+    border-radius: 4px;
+    background-color: $color-primary-error-light;
+    color: $color-primary-error-dark;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 16px;
+    text-align: left;
+}
+::ng-deep .login-response-error mat-icon{
+    font-size: 16px;
+    height: 16px;
+}
+::ng-deep .mat-mdc-form-field-hint-wrapper:has(.valid-space) {
+    position: inherit;
+}
+::ng-deep .login-valid .mat-mdc-form-field-subscript-wrapper:before{
+    display: block !important;
+    height: 4px;
+}
+
+
+::ng-deep .login-input-valid{
+    color: $color-primary-error-dark;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 16px;
+    text-align: left;
+}
+
+
+::ng-deep .g-capcha > div > div {
+    transform: scale(0.8) !important;
+    transform-origin: center !important;
+}
+
+/*********************************/
+/**************table ********/
+
+::ng-deep .mdc-data-table__cell, ::ng-deep .mdc-data-table__header-cell {
+    padding: 0 8px !important;
+    font-size: 12px !important;
+}
+
+::ng-deep .mat-mdc-table {
+    background-color: white !important;
+}
+
+::ng-deep .mat-mdc-row, 
+::ng-deep .mat-mdc-header-row {
+  height: 40px !important; 
+}
+
+::ng-deep .mat-mdc-cell, 
+::ng-deep .mat-mdc-header-cell {
+  //padding: 0 16px !important;
+  //line-height: 32px !important;
+}
+//.mat-mdc-unelevated-button:not(:disabled)
+
+/*************************************/
+/************* EXPAND PANEL **********/
+::ng-deep .mat-expansion-panel {
+    background: white !important;
+    //color: var(--mat-expansion-container-text-color, var(--mat-app-on-surface));
+    border-radius: 4px !important;
+}
+
+/***********************************/
+/************ SIDENAV *************/
+::ng-deep .mat-drawer {
+    //z-index: 4;
+    width: 280px !important;
+}
+@media (max-width: 1400px) {
+    //xl- desktop
+
+}
+@media (max-width: 1200px) {
+    //lg - desktop
+    ::ng-deep .container-home{
+        width: 95%;
+    }
+}
+@media (max-width: 992px) {
+    //md - table
+    ::ng-deep .container-items-home{
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+@media (max-width: 768px) {
+    //sm - table
+    ::ng-deep .nav-bar-home{
+        height: 48px;
+    }
+    ::ng-deep .nav-brand{
+        display: none;
+    }
+    ::ng-deep .nav-brand-mobile{
+        padding-right: 40px;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    ::ng-deep .nav-tabs{
+        display: none;
+    }
+    ::ng-deep .icon-user{
+        display: none;
+    }
+    ::ng-deep .icon-menu-mobile{
+        display: flex;
+        height: 100%;
+        align-items: center;
+        justify-content: center;
+    }
+    ::ng-deep .container-items-home{
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+@media (max-width: 576px) {
+    //xs - mobile
+    ::ng-deep .container-items-home{
+        grid-template-columns: repeat(1, 1fr);
+    }
+}
+
+

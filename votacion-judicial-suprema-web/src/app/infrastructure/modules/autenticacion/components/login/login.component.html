@@ -1,0 +1,97 @@
+<app-navbar></app-navbar>
+<div class="main-container">
+    <div class="main-content">
+        <form  #formRef="ngForm" (ngSubmit)="onSubmit(formRef)">
+            <div class="grid col-12 center">
+                <div class="col-12 sm:col-12 md:col-12 lg:col-8 xl:col-8 pr-0 pl-0 panel-portada-info">
+                        <div class="body-login mx-4 shadow-2">
+                            <p-panel [showHeader] ="false" styleClass="p-panel-transparent px-3 py-4">
+                                <div class="col-12 ">
+                                    <div class="panel-imagen-portada center">
+                                        <img class="image-portada" src="assets/img/portada.webp" alt="Portada Votación Judicial Suprema">
+                                    </div>
+                                </div>
+                                <div class="col-12 py-1 center text-paragraph flow-text">
+                                    
+                                </div>
+                            </p-panel>
+                        </div>                        
+                </div>
+                <div class="col-12 sm:col-12 md:col-12 lg:col-4 xl:col-4 login-container">
+                        <div class="body-login mx-4 shadow-7">
+                            <p-progressBar *ngIf="!tokenLoad" mode="indeterminate" [style]="{'height': '4px'}"></p-progressBar>
+                            <p-blockUI [blocked]="loginBlock" [target]="pnl">
+                                <div class="flex flex-column" >
+                                    <div class="flex justify-content-center">
+                                        <i class="pi pi-lock bloqueo-icon-login"></i>
+                                    </div>
+                                    <div class="flex justify-content-center mx-4">
+                                        <small align=" center">Error en la conexión con el servicio, recargue la página.</small>
+                                    </div>
+                                    <div class="flex justify-content-center mx-4 mt-3">
+                                        <button pButton pRipple type="button" label="Recargar Página" (click)="reloadLogin()" icon="pi pi-refresh" iconPos="right"  class="btn-sv p-button-sm p-buttonm  btn-login rounded-sv"></button> 
+                                    </div>
+                                </div>
+                            </p-blockUI>
+                            <p-panel #pnl [showHeader] ="false" styleClass="p-panel-transparent px-3 py-4 mx-2">
+                                <div class="grid">
+                                    <div class="col-12 center mt-5 py-0">
+                                        <span class="login-title">Iniciar sesión</span>
+                                    </div>
+                                    <div class="col-12 py-0">
+                                        <hr class="mt-0"/>
+                                    </div>
+                                    <div class="col-12 py-0">
+                                        <p-divider align="right" styleClass="mb-0 mt-0">
+                                            <div class="inline-flex align-items-center">
+                                                <small class="titulo-rq">Votación Judicial Suprema 1.14.1</small>
+                                            </div>
+                                        </p-divider>
+                                    </div>
+                                    <div class="col-1"></div>
+                                    <div class="col-9">
+                                        <div class="p-float-label col-12 mt-4 mb-0">
+                                            <input type="text" id="txtusuario" name="txtusuario" pInputText (keydown.enter)="login()" class="p-inputtext input-sv w-100 rounded-sv" #txtusuario="ngModel" required [(ngModel)]="user.usuario" (input)="toUpperCase(user.usuario)"  pattern="^[a-zA-Z0-9nÑ]+$" />
+                                            <label for="txtusuario">Usuario</label>
+                                        </div>
+                                        <div class="col-12 pt-0 pb-0">
+                                            <small *ngIf="txtusuario.invalid && (txtusuario.dirty || txtusuario.touched)" class="p-error">
+                                                * ¡El usuario es obligatorio y debe tener un formato válido!
+                                            </small>
+                                        </div>
+                                        <div class="p-float-label col-12 mt-3">
+                                            <p-password id="password" name="password" [(ngModel)]="user.clave" [toggleMask]="true" [feedback]="false" (keydown.enter)="login()" class="input-block" styleClass="input-block" inputStyleClass="p-inputtext input-sv w-100 rounded-sv" required #password="ngModel" minlength="3"></p-password>
+                                            <label for="password">Contraseña</label>
+                                        </div>
+                                        <div class="col-12 pt-0 pb-0">
+                                            <small *ngIf="password.invalid && (password.dirty || password.touched)" class="p-error">
+                                                * ¡La contraseña es obligatoria!
+                                            </small>
+                                        </div>
+                                        <div class="col center mt-2">
+                                            <button pButton pRipple type="button" label="INGRESAR" [loading]="loginLoad" [disabled]="formRef.invalid" (click)="login()" icon="pi pi-sign-in" iconPos="right"  class="btn-vj-black btn-login rounded-sv"></button>
+                                        </div>
+                                        <div *ngIf="flagCaptcha=='S'" class="col">
+                                            <re-captcha
+                                            #captchaElem
+                                            #captchaRef="reCaptcha"
+                                            (resolved)="resolved($event)"
+                                            (errored)="onError($event)"
+                                            errorMode="handled"
+                                            size="invisible"
+                                            siteKey="{{capchaKey}}">
+                                            ></re-captcha>
+                                        </div>
+                                        <div class="col-12 py-0">
+                                            <hr/>
+                                        </div>                                    
+                                    </div>
+                                </div>
+                            </p-panel>
+                        </div>
+                    </div>
+                </div>
+            </form>
+    </div>
+    <app-footer></app-footer>
+</div>

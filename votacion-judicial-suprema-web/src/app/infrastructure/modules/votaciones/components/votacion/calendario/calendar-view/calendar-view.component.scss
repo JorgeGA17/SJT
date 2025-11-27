@@ -1,0 +1,225 @@
+@import '../../../../../../../global.scss';
+.calendar-container {
+  padding: 4px;
+  max-width: 720px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.calendar-card {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.calendar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+
+  .header-controls {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+
+    .month-title {
+      margin: 0;
+      min-width: 250px;
+      text-align: center;
+      font-size: 18px;
+      font-weight: 500;
+    }
+  }
+}
+
+.calendar-content {
+  padding: 8px;
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 2px;
+
+  .weekday-header {
+    text-align: center;
+    font-weight: 600;
+    padding: 4px 4px;
+    color: rgba(0, 0, 0, 0.6);
+    border-bottom: 2px solid rgba(0, 0, 0, 0.12);
+    margin-bottom: 8px;
+  }
+}
+
+.calendar-day {
+  min-height: 88px;
+  padding: 2px;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+
+  .day-number {
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 0px;
+    color: rgba(0, 0, 0, 0.87);
+  }
+
+  &.other-month {
+    background-color: rgba(0, 0, 0, 0.02);
+
+    .day-number {
+      color: rgba(0, 0, 0, 0.38);
+    }
+  }
+
+  &.today {
+    border: 1px solid $color-primary;
+
+    .day-number {
+      color: $color-primary;
+      font-weight: 700;
+    }
+  }
+
+  &.has-events {
+    background-color: #f5f5f5;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #e8eaf6;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    }
+  }
+}
+
+.events-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-top: 2px;
+
+  .event-chips {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .event-chip {
+    font-size: 10px;
+    height: 18px;
+    padding: 0 0px;
+    background-color: #ffc6c6;
+    color: black;
+    overflow: hidden;
+
+    .chip-text {
+      display: block;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      color: #333333;
+    }
+  }
+
+  .more-chip {
+    font-size: 10px;
+    height: 18px;
+    padding: 0 0px;
+    background-color: #a3a1a1;
+    color: white !important;
+  }
+}
+
+// Responsive
+@media (max-width: 768px) {
+  .calendar-container {
+    padding: 10px;
+    max-width: 100%;
+    
+  }
+
+  .calendar-header {
+    flex-direction: column;
+    gap: 16px;
+
+    .header-controls {
+      .month-title {
+        font-size: 20px;
+        min-width: 200px;
+      }
+    }
+  }
+
+  .calendar-day {
+    min-height: 80px;
+    padding: 2px;
+
+    .day-number {
+      font-size: 12px;
+    }
+
+    .event-chip {
+      font-size: 9px;
+      height: 20px;
+      padding: 0 6px;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .calendar-day {
+    min-height: 60px;
+
+    .events-container {
+      display: none;
+    }
+
+    &.has-events::after {
+      content: '';
+      position: absolute;
+      bottom: 4px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background-color: $color-primary;
+    }
+  }
+}
+
+::ng-deep .mdc-evolution-chip {
+  border: none !important;
+}
+::ng-deep .mat-mdc-chip .mdc-evolution-chip__text-label {
+  font-size: 12px !important; /* Elige tu tamaño */
+}
+::ng-deep .mat-mdc-standard-chip .mdc-evolution-chip__action--primary {
+    padding-left: 8px !important;
+    padding-right: 8px !important;
+}
+
+::ng-deep .mat-mdc-chip-set .mdc-evolution-chip {
+    margin: 2px !important;
+}
+
+::ng-deep .mat-mdc-chip-set .mdc-evolution-chip-set__chips {
+    
+    min-width: initial !important;
+    max-width: 80px;
+    width:100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    overflow: hidden;
+}
+
+::ng-deep .mat-mdc-standard-chip .mdc-evolution-chip__action--primary::before {
+    border-style: none !important;
+}

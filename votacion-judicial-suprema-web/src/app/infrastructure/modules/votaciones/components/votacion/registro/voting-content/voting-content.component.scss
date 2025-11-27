@@ -1,0 +1,296 @@
+.voting-content-container {
+  padding: 24px;
+  max-width: 1600px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.casacion-header-info{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+}
+.casacion-info{
+  font-weight: 600;
+}
+.nro-rec{
+  width: 160px;
+}
+.chip-info{
+  background-color: rgb(221, 208, 175);
+  height: 32px;
+  padding: 2px 16px;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  border-radius: 8px;
+}
+.chip-origen{
+  background-color: rgb(229, 223, 209);
+  height: 32px;
+  padding: 2px 16px;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  border-radius: 8px;
+}
+.chip-origen-primary{
+  background-color: #8b0000;
+  color: #fff;
+}
+.card-title{
+  font-weight: 600;
+  font-size: 18px;
+}
+.card-content{
+  padding-top: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.casacion-origen{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+.magistrados-voto, .sala-origen{
+  display: flex;
+  flex-direction: column;
+}
+.juz-origen-det{
+  display: grid;
+  grid-template-columns: 180px 180px 1fr;
+  gap: 8px;
+}
+.sala-origen-det{
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  gap: 8px;
+}
+
+.magistrados-det{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  gap: 8px;
+}
+
+.divider-1 {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin: 8px 0;
+}
+
+.divider-1::before,
+.divider-1::after {
+    content: '';
+    flex: 1;
+    border-bottom: 2px solid #cdc5c5;
+}
+
+.divider-1 span {
+    padding: 0 16px;
+    color: #333;
+    font-weight: 500;
+}
+
+.juris-content{
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.juris-filters{
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.center{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+// FILA 1: Título
+.title-section {
+  margin-bottom: 32px;
+  padding-bottom: 24px;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.12);
+
+  .voting-title {
+    margin: 0 0 16px 0;
+    font-size: 28px;
+    font-weight: 600;
+    color: #1a237e;
+    line-height: 1.3;
+  }
+
+  .voting-metadata {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+    font-size: 14px;
+
+    span {
+      color: rgba(0, 0, 0, 0.7);
+
+      strong {
+        color: rgba(0, 0, 0, 0.87);
+        margin-right: 4px;
+      }
+    }
+  }
+}
+
+// FILA 2: Tabla de Partes
+.parts-section {
+  margin-bottom: 32px;
+
+  .section-title {
+    margin: 0 0 16px 0;
+    font-size: 20px;
+    font-weight: 600;
+    color: rgba(0, 0, 0, 0.87);
+  }
+}
+
+// FILA 3: Dos columnas
+.two-columns-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-bottom: 32px;
+
+  .column {
+    min-height: 400px;
+
+    .section-title {
+      margin: 0 0 16px 0;
+      font-size: 20px;
+      font-weight: 600;
+      color: rgba(0, 0, 0, 0.87);
+    }
+  }
+
+  .left-column {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .right-column {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+// FILA 4: Botón de Documentos
+.documents-section {
+  display: flex;
+  justify-content: flex-end;
+  padding: 24px 0;
+
+  .documents-button {
+    padding: 0 32px;
+    height: 48px;
+    font-size: 16px;
+    font-weight: 500;
+
+    mat-icon {
+      margin-right: 8px;
+    }
+  }
+}
+
+// Mensaje sin selección
+.no-selection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  min-height: 400px;
+  text-align: center;
+  color: rgba(0, 0, 0, 0.6);
+
+  .no-selection-icon {
+    font-size: 64px;
+    width: 64px;
+    height: 64px;
+    margin-bottom: 16px;
+    color: rgba(0, 0, 0, 0.4);
+  }
+
+  h2 {
+    margin: 0 0 8px 0;
+    font-size: 24px;
+    font-weight: 500;
+  }
+
+  p {
+    margin: 0;
+    font-size: 16px;
+  }
+}
+
+// Responsive
+@media (max-width: 1200px) {
+  .two-columns-section {
+    grid-template-columns: 1fr;
+
+    .column {
+      min-height: 300px;
+    }
+  }
+
+  .documents-section {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .voting-content-container {
+    padding: 16px;
+  }
+
+  .title-section {
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+
+    .voting-title {
+      font-size: 22px;
+    }
+
+    .voting-metadata {
+      flex-direction: column;
+      gap: 8px;
+    }
+  }
+
+  .parts-section,
+  .two-columns-section {
+    margin-bottom: 24px;
+
+    .section-title {
+      font-size: 18px;
+    }
+  }
+
+  .documents-section {
+    .documents-button {
+      width: 100%;
+      padding: 0 16px;
+    }
+  }
+}
+
+
+.btn-icon-right .btn-content {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Asegura que el icono esté después del texto */
+.btn-icon-right .btn-content mat-icon {
+  order: 1;
+}

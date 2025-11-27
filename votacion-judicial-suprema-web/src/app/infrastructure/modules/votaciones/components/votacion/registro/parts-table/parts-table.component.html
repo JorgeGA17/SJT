@@ -1,0 +1,118 @@
+<div class="parts-table-container">
+  <form [formGroup]="partesForm">
+    <table mat-table [dataSource]="partesFormArray.controls" class="parts-table" formArrayName="partes">
+      <!-- Columna Tipo Parte -->
+      <ng-container matColumnDef="tipoParte">
+        <th mat-header-cell *matHeaderCellDef>Tipo Parte</th>
+        <td mat-cell *matCellDef="let control; let i = index" [formGroupName]="i">
+          <div class="cell-content">{{ control.get('tipoParte')?.value }}</div>
+        </td>
+      </ng-container>
+
+      <!-- Columna Nombre -->
+      <ng-container matColumnDef="nombre">
+        <th mat-header-cell *matHeaderCellDef>Nombre</th>
+        <td mat-cell *matCellDef="let control; let i = index" [formGroupName]="i">
+          <div class="cell-content">{{ control.get('nombre')?.value }}</div>
+        </td>
+      </ng-container>
+
+      <!-- Columna Sentido -->
+      <ng-container matColumnDef="sentido">
+        <th mat-header-cell *matHeaderCellDef>Sentido</th>
+        <td mat-cell *matCellDef="let control; let i = index" [formGroupName]="i">
+          <mat-form-field appearance="outline" class="compact-field">
+            <mat-select formControlName="sentido">
+              <mat-option *ngFor="let option of sentidoOptions" [value]="option">
+                {{ option }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </td>
+      </ng-container>
+
+      <!-- Columna Fallo -->
+      <ng-container matColumnDef="fallo">
+        <th mat-header-cell *matHeaderCellDef>Fallo</th>
+        <td mat-cell *matCellDef="let control; let i = index" [formGroupName]="i">
+          <mat-form-field appearance="outline" class="compact-field">
+            <mat-select formControlName="fallo">
+              <mat-option *ngFor="let option of falloOptions" [value]="option">
+                {{ option }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </td>
+      </ng-container>
+
+      <!-- Columna Discordia -->
+      <ng-container matColumnDef="discordia">
+        <th mat-header-cell *matHeaderCellDef>Discordia</th>
+        <td mat-cell *matCellDef="let control; let i = index" [formGroupName]="i">
+          <div class="discordia-cell">
+            <mat-chip-listbox class="chip-list">
+              <mat-chip-option
+                *ngFor="let magistrado of control.get('discordia')?.value"
+                (removed)="removeMagistrado(i, magistrado)"
+              >
+                {{ magistrado }}
+                <button matChipRemove>
+                  <mat-icon>cancel</mat-icon>
+                </button>
+              </mat-chip-option>
+            </mat-chip-listbox>
+
+            <mat-form-field appearance="outline" class="compact-field add-magistrado">
+              <mat-select
+                placeholder="Agregar..."
+                (selectionChange)="addMagistrado(i, $event.value)"
+              >
+                <mat-option
+                  *ngFor="let magistrado of getAvailableMagistrados(i)"
+                  [value]="magistrado"
+                >
+                  {{ magistrado }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </td>
+      </ng-container>
+
+      <!-- Columna Efectos del Sentido -->
+      <ng-container matColumnDef="efectosSentido">
+        <th mat-header-cell *matHeaderCellDef>Efectos del Sentido</th>
+        <td mat-cell *matCellDef="let control; let i = index" [formGroupName]="i">
+          <div class="efectos-cell">
+            <div
+              *ngIf="!isRowExpanded(i)"
+              class="efectos-preview"
+              (click)="toggleRow(i)"
+            >
+              {{ control.get('efectosSentido')?.value || 'Sin especificar' }}
+            </div>
+
+            <mat-form-field
+              *ngIf="isRowExpanded(i)"
+              appearance="outline"
+              class="full-width-field"
+            >
+              <textarea
+                matInput
+                formControlName="efectosSentido"
+                cdkTextareaAutosize
+                cdkAutosizeMinRows="3"
+                cdkAutosizeMaxRows="10"
+                (blur)="toggleRow(i)"
+                placeholder="Describa los efectos del sentido..."
+              ></textarea>
+            </mat-form-field>
+          </div>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+  </form>
+</div>

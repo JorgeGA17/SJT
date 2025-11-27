@@ -1,0 +1,142 @@
+@import '../../../../../global.scss';
+
+.main-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: auto;
+    overflow: auto;
+}
+
+.main-content {
+    flex: 1;
+    margin: 0;
+    padding: 5px;
+}
+
+.registro-title{
+    //font-family: 'Playfair Display', serif;
+    font-size: 1.9em;
+    font-weight: 600;
+    color: #333;
+    text-align: center;
+    text-transform: uppercase;
+    //letter-spacing: 0.5px;
+    line-height: 1;
+    margin: 0;
+}
+
+.divisor_subtitle{
+    height: 40px;
+    background-color: darkkhaki;
+    width: 100%;
+    text-align: center;
+    //padding-bottom: 40px;
+}
+
+.registro-subtitle{
+    font-size: 1.2em;
+    font-weight: 600;
+    color: #333;
+    text-align: right;
+    text-transform: uppercase;
+    margin: 0;
+    padding: 5px;
+    padding-left: 14px;
+}
+
+.centrar-componentes{
+    max-width: 1500px;
+    width: 100%;
+    margin: auto;
+}
+
+.custom-contenido{
+    //height: 100vh;
+    width: 100%;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.back-custom{
+    width: 100%;
+    margin-top: 40px;
+    margin-bottom: 25px;
+    margin-inline: 25px;
+    display: flex;
+    justify-content: center;
+}
+
+.container-filtros{
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    padding-inline: 5px;
+}
+
+.filtro-general{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    margin-block: 40px;
+}
+
+.filtro{
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+    max-width: 520px;
+}
+
+.filtro-visualiza{
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+    max-width: 520px;
+    margin-top: 40px;
+}
+
+.filtro-download{
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+    max-width: 520px;
+    //margin-top: 40px;
+}
+
+.btn-reporte{
+    min-width: 169px;
+}
+
+.tabla-busqueda{
+    width: 100%;
+    margin-top: 10px;
+}
+
+.group-filtro{
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    width: 100%;
+    min-width: 340px;
+    justify-content: space-between;
+}
+
+.filtro-title{
+    min-width: 160px;
+}
+
+.w-filtro-general{
+    width: 520px;
+}
+
+::ng-deep .calendar-filtro-custom{
+    width: 100% !important;
+    max-width: 520px !important;
+}
+

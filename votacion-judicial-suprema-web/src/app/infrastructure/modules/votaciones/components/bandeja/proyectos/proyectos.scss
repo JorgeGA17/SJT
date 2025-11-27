@@ -1,0 +1,98 @@
+
+@import '../../../../../../global.scss';
+.w-100{
+    width: 100%;
+}
+.proyecto-content{
+    width: 1250px;
+    max-width: 100%;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.proyecto-filter{
+    margin-top: 16px;
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+}
+.filter-item{
+    width: 180px;
+}
+.data-estados-compra{
+    width: 100%;
+    border-collapse: collapse; 
+    //border-spacing: 0 8px;
+}
+
+.data-estados-compra>thead{
+    background-color: $color-primary-p100;
+    color: $color-neutral-n0;
+}
+.data-estados-compra>thead>tr>td{
+    padding-top: 8px;
+    padding-bottom: 8px;
+    text-align: center;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 16px;
+}
+.data-estados-compra>tbody>tr td{
+    color: $color-primary-p100;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 16px;
+    text-align: center;
+    padding: 8px 4px;
+}
+.impar{
+    background-color: transparent;
+}
+.par{
+    background-color: $color-neutral-n0;
+}
+
+.acciones-users{
+    display: flex;
+    gap: 8px;
+}
+.state-detail-icon{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    cursor: pointer;
+    color: $color-neutral-n0;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 14px;
+    text-align: left;
+    padding: 4px 8px;
+    border-radius: 4px;
+    background-color: $color-active;
+    
+}
+
+.divisor_subtitle{
+    height: 40px;
+    background-color: darkkhaki;
+    width: 100%;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    //padding-bottom: 40px;
+}
+
+.registro-subtitle{
+    font-size: 1.2em;
+    font-weight: 600;
+    color: #333;
+    text-align: right;
+    text-transform: uppercase;
+    margin: 0;
+    padding: 5px;
+    padding-left: 14px;
+}

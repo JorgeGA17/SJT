@@ -1,0 +1,20 @@
+{
+  "codigo": "0000",
+  "descripcion": "La operación se realizo de manera exitosa.",
+  "data": [
+    {
+      "id": "1",
+      "nombre": "DOCUMENTO NACIONAL DE IDENTIDAD",
+      "abreviatura": "DNI",
+      "activo": "1"
+    },
+    { "id": "5", "nombre": "PASAPORTE", "abreviatura": "PS", "activo": "1" },
+    {
+      "id": "6",
+      "nombre": "CARNET DE EXTRANJERIA",
+      "abreviatura": "CE",
+      "activo": "1"
+    }
+  ],
+  "codigoOperacion": "20240306081826000942571"
+}

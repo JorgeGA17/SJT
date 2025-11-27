@@ -1,0 +1,30 @@
+<div class="file-list-container">
+  <div class="list-header">
+    <h3>Documentos</h3>
+    <span class="count-badge">{{ documentos.length }}</span>
+  </div>
+
+  <mat-nav-list class="file-list">
+    <mat-list-item
+      *ngFor="let documento of documentos"
+      (click)="selectDocument(documento)"
+      [class.active]="isDocumentOpen(documento)"
+      class="file-item"
+    >
+      <mat-icon matListItemIcon class="file-icon">picture_as_pdf</mat-icon>
+      <div matListItemTitle class="file-name">{{ documento.nombre }}</div>
+      <mat-icon
+        *ngIf="isDocumentOpen(documento)"
+        matListItemMeta
+        class="open-indicator"
+      >
+        visibility
+      </mat-icon>
+    </mat-list-item>
+  </mat-nav-list>
+
+  <div *ngIf="documentos.length === 0" class="empty-message">
+    <mat-icon>folder_open</mat-icon>
+    <p>No hay documentos disponibles</p>
+  </div>
+</div>

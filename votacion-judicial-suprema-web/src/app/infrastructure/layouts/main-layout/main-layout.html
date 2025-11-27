@@ -1,0 +1,23 @@
+
+<div class="main-body">
+    <div class="row-header mat-elevation-z3">
+        <app-navbar [profile]="true" [listaMenu]="itemsNavbar"  [listaMenuEnd]="items"></app-navbar>
+    </div>
+    <div class="row-content">
+        <div class="row-content-body">
+            <div class="panel-content content-full">
+                <div class="main-titile-content">
+                    <span class="main-title">CORTE SUPREMA DE JUSTICIA DE LA REPÚBLICA</span>
+                    <span class="main-title">{{sala?.nombreInstancia?.toUpperCase()}}</span>
+                </div>
+                <div class="main-content">
+                    <router-outlet></router-outlet>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+    <!--<div class="row-footer mat-elevation-z3">
+        <app-footer></app-footer>
+    </div>-->
+</div>

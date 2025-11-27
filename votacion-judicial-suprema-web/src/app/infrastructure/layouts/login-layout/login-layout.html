@@ -1,0 +1,30 @@
+<div class="nav-bar-mobile">
+    <div class="btn-nav-mobile">
+        <button mat-button class="mt-btn-flat-icon" (click)="goBack()" [ngClass]="{'hidden': opcultarBack }">
+            <mat-icon class="flat-icon">arrow_back_ios</mat-icon>
+        </button>
+    </div>
+    
+    <img src="assets/img/vj/logo_app_vjs.png" alt="logo">
+    
+    <div class="btn-nav-mobile">
+        <button mat-button class="mt-btn-flat-icon" >
+            <mat-icon class="flat-icon" style="display: none;">close</mat-icon>
+        </button>
+    </div>
+</div>
+<div class="container">
+    <div class="left-side">
+        <div class="img-content">
+             @if(isMobile){
+                <img src="assets/img/vj/portada.webp" alt="Imagen" class="image">
+            }
+                @else {
+                <img src="assets/img/vj/portada.webp" alt="Imagen" class="image">
+            }
+        </div>
+    </div>
+    <div class="right-side">
+        <router-outlet />
+    </div>
+</div>

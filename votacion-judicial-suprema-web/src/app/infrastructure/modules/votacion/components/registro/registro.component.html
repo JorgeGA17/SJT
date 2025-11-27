@@ -1,0 +1,587 @@
+<app-navbar></app-navbar>
+<div class="main-container">
+    <div class="main-content">
+        <div class="grid center">
+            <div class="col col-12 center mt-4">
+                <span class="registro-title">CORTE SUPREMA DE JUSTICIA DE LA REPÚBLICA</span>
+            </div>
+            <div class="col col-12 center">
+                <span class="registro-title">{{nombreSalaUsuario||''}}</span>
+            </div>                    
+            <div class="col col-12 mt-4 divisor_subtitle">
+                <div class="centrar-componentes">
+                    <span class="registro-subtitle">RELACIÓN DE VISTAS DE CAUSA DEL {{fechaFormateada||''}}</span>    
+                </div>
+            </div>
+            <div class="col col-12" style="background-color: #ffffff;">
+                <div class="centrar-componentes buscador">
+                    <div class="container-busqueda">
+                        <span class="buscador-title">NÚMERO DE ORDEN Y/O CASACIÓN : </span>
+                        <p-dropdown [options]="listaCasaciones" appendTo="body" [(ngModel)]="casacionSeleccionada" optionLabel="numeroRecurso" filterBy="numeroRecurso" [filter]="true" [showClear]="false" (onChange)="eventSelectCasacion(casacionSeleccionada)" [style]="{'width':'100%'}"></p-dropdown>
+                    </div>
+                    <div class="container-busqueda">
+                        <span class="buscador-title">ESTADO : </span>
+                        <div class="container-estado">
+                            <div class="estado-label">{{casacionSeleccionada?.estado||''}} </div>
+                            <!-- <div class="estado-label">{{textLEstado||''}} </div> -->
+                        </div>
+                    </div>
+                    <div class="container-busqueda container-botones">
+                        <p-overlayPanel class="overlay-custom-cabecera" #olDocs>
+                            <div class="overlay-container-cabecera">
+                                <p-table [value]="listaDocumentosDigitales" class="p-datatable-sm tabla-custom" [tableStyle]="{'min-width': '50rem'}" >
+                                    <ng-template pTemplate="header">
+                                        <tr>
+                                            <th class="col-tipo">NOMBRE</th>
+                                            <th class="col-tipo">TIPO DOCUMENTO</th>
+                                            <th class="col-anotacion">VISUALIZAR</th>
+                                        </tr>
+                                    </ng-template>
+                                    <ng-template pTemplate="body" let-doc>
+                                        <tr >
+                                            <td class="col-tipo">
+                                                {{doc.nombreArchivo | uppercase }}
+                                            </td>
+                                            <td class="col-tipo">
+                                                {{doc.tipoDocumento | uppercase }}
+                                            </td>
+                                            <td class="col-tipo" >
+                                                <div>
+                                                    <button type="button" pButton icon="pi pi-eye"  label="" (click)="verDoc(doc)"></button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </ng-template>
+                                    <ng-template pTemplate="emptymessage">
+                                        <tr>
+                                        <td colspan="8" class="text-center">No se encontraron documentos</td>
+                                        </tr>
+                                    </ng-template>
+                                </p-table>
+                            </div>
+                        </p-overlayPanel>
+                        <p-overlayPanel class="overlay-custom-cabecera" #ol>
+                            <div class="overlay-container-cabecera">
+                                <p-table [value]="listaCasacionesRelacionadas" class="p-datatable-sm tabla-custom" [tableStyle]="{'min-width': '50rem'}" >
+                                    <ng-template pTemplate="header">
+                                        <tr>
+                                            <th class="col-tipo">EXPEDIENTE</th>
+                                            <th class="col-tipo">FECHA PROGRAMACION</th>
+                                            <th class="col-tipo">TIPO</th>
+                                            <!-- <th class="col-tipo">SENTIDO</th>
+                                            <th class="col-tipo">FALLO</th> -->
+                                            <th class="col-anotacion">TABLILLA</th>
+                                        </tr>
+                                    </ng-template>
+                                    <ng-template pTemplate="body" let-cas>
+                                        <tr >
+                                            <td class="col-tipo">
+                                                {{cas.numeroExpediente | uppercase }}
+                                            </td>
+                                            <td class="col-tipo">
+                                                {{cas.fechaProgramacionFormateada | uppercase }}
+                                            </td>
+                                            <td class="col-tipo">
+                                                {{cas.descripcion | uppercase }}
+                                            </td>
+                                            <!-- <td class="col-tipo">
+                                                {{cas.descSentido | uppercase }}
+                                            </td>
+                                            <td class="col-tipo">
+                                                {{cas.descFallo | uppercase }}
+                                            </td> -->
+                                            <td class="col-tipo" >
+                                                <div>
+                                                    <button type="button" pButton icon="pi pi-eye"  label="" (click)="verTablilla(cas)"></button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </ng-template>
+                                    <ng-template pTemplate="emptymessage">
+                                        <tr>
+                                        <td colspan="8" class="text-center">No se encontraron casaciones</td>
+                                        </tr>
+                                    </ng-template>                                    
+                                </p-table>
+                            </div>
+                        </p-overlayPanel>                        
+                        <p-button class="boton-busqueda" icon="pi pi-file" label="" (click)="olDocs.toggle($event)"></p-button>
+                        <p-button class="boton-busqueda" *ngIf="tablillaData.tipoAudiencia && tablillaData.tipoAudiencia.trim().toUpperCase()=='FONDO' " icon="pi pi-history" label="" (click)="ol.toggle($event)"></p-button>
+                        <!--<p-button class="boton-busqueda" icon="pi pi-history" label="" (click)="ol.toggle($event)"></p-button>-->
+                        <p-button class="boton-busqueda" (click)="loadCasaciones()" label="" icon="pi pi-refresh"></p-button>
+                        <p-button class="boton-busqueda" (click)="retrocederCasacion()" [disabled]="!flagBtnAnterior" label="ANTERIOR" icon="pi pi-caret-left"></p-button>
+                        <p-button class="boton-busqueda" (click)="avanzarCasacion()" [disabled]="!flagBtnSiguiente" label="SIGUIENTE" icon="pi pi-caret-right" iconPos="right"></p-button>
+                    </div>
+                </div>
+            </div>                
+            <div class="col col-12 p-0 centrar-componentes">
+                <p-panel header="{{casacionSeleccionada?.numeroRecurso||''}}{{tablillaData.tipoAudiencia?' - '+tablillaData.tipoAudiencia.trim().toUpperCase():''}}{{casacionSeleccionada?.procedencia?' - '+casacionSeleccionada?.procedencia:''}}" class="custom-panel" [toggleable]="true">
+                    <div *ngIf="tablillaData.existe" class="panel-content centrar-componentes" >
+                        <div class="container-grupo-data">
+                            <div class="container-subgrupo">
+                                <div class="container-data-origen">
+                                    <span class="label-grupo-data">Juzgado de Origen</span>
+                                    <div class="grupo-data-origen">
+                                        <input id="disabled-input" class="data-maestra data-origen descProceso" type="text" pInputText [disabled]="true" value="{{this.tablillaData.descProceso}}" pTooltip="{{this.tablillaData.descProceso}}" />
+                                        <input id="disabled-input" class="data-maestra data-origen descActoProcesal" type="text" pInputText [disabled]="true" value="{{this.tablillaData.descActoProcesalJuez}} FJS. {{this.tablillaData.fojasJuez}}" pTooltip="{{this.tablillaData.descActoProcesalJuez}} FJS. {{this.tablillaData.fojasJuez}}" />
+                                        <input id="disabled-input" class="data-maestra data-origen" type="text" pInputText [disabled]="true" value="{{this.tablillaData.descFalloJuez}}" pTooltip="{{this.tablillaData.descFalloJuez}}"/>
+                                    </div>
+                                </div>
+                                <div class="container-data-origen">
+                                    <span class="label-grupo-data">Sala de Procedencia</span>
+                                    <div class="grupo-data-origen">
+                                        <input id="disabled-input"  class="data-maestra data-procedencia descActoProcesal" type="text" pInputText [disabled]="true" value="{{this.tablillaData.descActoProcesalProcedencia}} FJS. {{this.tablillaData.fojasOrigenProcedencia}}" pTooltip="{{this.tablillaData.descActoProcesalProcedencia}} FJS. {{this.tablillaData.fojasOrigenProcedencia}}"/>
+                                        <input id="disabled-input"  class="data-maestra data-procedencia" type="text" pInputText [disabled]="true" value="{{this.tablillaData.descFalloProcedencia}}" pTooltip="{{this.tablillaData.descFalloProcedencia}}"/>
+                                    </div>                            
+                                </div>                            
+                            </div>
+                            <div class="container-subgrupo">
+                                <div class="container-data-magistrado">
+                                    <span class="label-grupo-data">Magistrados</span>
+                                    <div class="grupo-data">
+                                        <input id="disabled-input" class="data-magistrados data-maestra" type="text" pInputText [disabled]="true" value="{{this.tablillaData.magistrado1}}" [ngClass]="{'highlighted': this.tablillaData.magistrado1Flag==='S'}" pTooltip="{{this.tablillaData.magistrado1}}"/>
+                                        <input id="disabled-input" class="data-magistrados data-maestra" type="text" pInputText [disabled]="true" value="{{this.tablillaData.magistrado2}}" [ngClass]="{'highlighted': this.tablillaData.magistrado2Flag==='S'}" pTooltip="{{this.tablillaData.magistrado2}}"/>
+                                        <input id="disabled-input" class="data-magistrados data-maestra" type="text" pInputText [disabled]="true" value="{{this.tablillaData.magistrado3}}" [ngClass]="{'highlighted': this.tablillaData.magistrado3Flag==='S'}" pTooltip="{{this.tablillaData.magistrado3}}"/>                                
+                                        <input id="disabled-input" class="data-magistrados data-maestra" type="text" pInputText [disabled]="true" value="{{this.tablillaData.magistrado4}}" [ngClass]="{'highlighted': this.tablillaData.magistrado4Flag==='S'}" pTooltip="{{this.tablillaData.magistrado4}}"/>
+                                        <input id="disabled-input" class="data-magistrados data-maestra" type="text" pInputText [disabled]="true" value="{{this.tablillaData.magistrado5}}" [ngClass]="{'highlighted': this.tablillaData.magistrado5Flag==='S'}" pTooltip="{{this.tablillaData.magistrado5}}"/>
+                                    </div>                            
+                                </div>
+                                <div class="container-data-magistrado">
+                                    <span class="label-grupo-data">Impedimentos</span>
+                                    <div class="grupo-data">
+                                        <input id="disabled-input" class="data-magistrados data-maestra" type="text" pInputText [disabled]="true" value="{{this.tablillaData.impedimento1}}" [ngClass]="{'highlighted': this.tablillaData.impedimento1Flag==='S'}" pTooltip="{{this.tablillaData.impedimento1}}"/>
+                                        <input id="disabled-input" class="data-magistrados data-maestra" type="text" pInputText [disabled]="true" value="{{this.tablillaData.impedimento2}}" [ngClass]="{'highlighted': this.tablillaData.impedimento2Flag==='S'}" pTooltip="{{this.tablillaData.impedimento2}}"/>
+                                        <input id="disabled-input" class="data-magistrados data-maestra" type="text" pInputText [disabled]="true" value="{{this.tablillaData.impedimento3}}" [ngClass]="{'highlighted': this.tablillaData.impedimento3Flag==='S'}" pTooltip="{{this.tablillaData.impedimento3}}"/>                                
+                                        <input id="disabled-input" class="data-magistrados data-maestra" type="text" pInputText [disabled]="true" value="{{this.tablillaData.impedimento4}}" [ngClass]="{'highlighted': this.tablillaData.impedimento4Flag==='S'}" pTooltip="{{this.tablillaData.impedimento4}}"/>
+                                        <input id="disabled-input" class="data-magistrados data-maestra" type="text" pInputText [disabled]="true" value="{{this.tablillaData.impedimento5}}" [ngClass]="{'highlighted': this.tablillaData.impedimento5Flag==='S'}" pTooltip="{{this.tablillaData.impedimento5}}"/>
+                                    </div>                            
+                                </div>                            
+                            </div>
+                        </div>
+                        <div class="container-grupo-materias">
+                            <div class="container-materias">
+                                <p-panel header="MATERIAS"  [collapsed]="true" class="materiaC" [toggleable]="true">
+                                    <ul>
+                                        <li class="label-grupo-data" *ngFor="let item of this.tablillaData.materias">{{ item.xmateria }}</li>
+                                        <li *ngIf="!this.tablillaData.materias || this.tablillaData.materias.length === 0" class="label-grupo-data">
+                                            NO EXISTEN MATERIAS REGISTRADAS.
+                                        </li>
+                                    </ul>
+                                </p-panel>
+                            </div>
+                            <div class="container-materias">
+                                <p-panel header="CAUSALES" [collapsed]="true" class="materiaC" [toggleable]="true">
+                                    <ul>
+                                        <li class="label-grupo-data" *ngFor="let item of this.tablillaData.causales">{{ item }}</li>
+                                        <li *ngIf="!this.tablillaData.causales || this.tablillaData.causales.length === 0" class="label-grupo-data">
+                                            NO EXISTEN CAUSALES REGISTRADAS.
+                                        </li>
+                                    </ul>
+                                </p-panel>
+                            </div>
+                        </div>                        
+                    </div>        
+                    <div *ngIf="tablillaData.existe" class="centrar-componentes-tabla" >
+                        <div class="container-grupo container-tabla">
+                            <div class="tabla-recurrentes"  style="overflow: scroll;">
+                                <p-table [value]="tablillaData.recurrentes" class="p-datatable-sm tabla-custom" [tableStyle]="{'min-width': '50rem'}" >
+                                    <ng-template pTemplate="header">
+                                        <tr>
+                                            <th class="col-tipo">TIPO PARTE</th>
+                                            <th class="col-tipo">NOMBRE</th>
+                                            <th class="col-tipo">SENTIDO</th>
+                                            <th class="col-tipo">FALLO</th>
+                                            <th class="col-tipo">DISCORDIA</th>
+                                            <th class="col-anotacion">EFECTOS DEL SENTIDO</th>
+                                        </tr>
+                                    </ng-template>
+                                    <ng-template pTemplate="body" let-parte>
+                                        <tr [ngClass]="{'disableClass': parte.lrecurrente!=='S'}">
+                                            <td class="col-tipo">
+                                                {{parte.xabreviatura | uppercase }}
+                                            </td>
+                                            <td class="col-parte">
+                                                {{parte.nombreParte | uppercase }} {{parte.desParte | uppercase }}
+                                            </td>
+                                            <td class="col-sentido">
+                                                <p-dropdown [options]="listaSentidos" *ngIf="parte.lrecurrente=='S'" [disabled]="parte.lrecurrente!=='S' || flagVoto || !ponenteMode || (casacionSeleccionada?.estado!=='AL VOTO' && parte.lpublicado=='S')" [(ngModel)]="parte.sentido" placeholder="SELECCIONAR" optionLabel="xsentido" (onChange)="seleccionarSentido(parte)" class="custom-dropdown" [style]="{'width':'100%'}" appendTo="body"></p-dropdown>
+                                            </td>
+                                            <td class="col-sentido">
+                                                <p-dropdown [options]="listaFallosUsuario" *ngIf="parte.lrecurrente=='S' && parte.ldiscordia!=='S' && !flagVoto" [disabled]="parte.lrecurrente!=='S' || parte.ldiscordia=='S' || flagVoto || !ponenteMode || (casacionSeleccionada?.estado!=='AL VOTO' && parte.lpublicado=='S')" [(ngModel)]="parte.fallo" placeholder="SELECCIONAR" optionLabel="xfallo" class="custom-dropdown" [style]="{'width':'100%'}" appendTo="body"></p-dropdown>
+                                                <p-dropdown [options]="listaAlVoto" [(ngModel)]="parte.fallo" optionLabel="xfallo" *ngIf="parte.lrecurrente=='S' && parte.ldiscordia!=='S' && flagVoto" [disabled]="parte.lrecurrente!=='S' || parte.ldiscordia=='S' || flagVoto || !ponenteMode || (casacionSeleccionada?.estado!=='AL VOTO' && parte.lpublicado=='S')" class="custom-dropdown" [style]="{'width':'100%'}" appendTo="body"></p-dropdown>
+                                            </td>
+                                            <td class="col-sentido">
+                                                <div class="discordia-container" *ngIf="parte.lrecurrente=='S'">
+                                                    <form class="discordia-form" #myForm="ngForm">
+                                                        <div>
+                                                            <button type="button" pButton icon="pi pi-plus" [disabled]="parte.lrecurrente!=='S' || parte.ldiscordia!=='S' || !ponenteMode" label="" class="discordia-boton" (click)="openDialog(parte)"></button>
+                                                        </div>
+                                                        <div class="selected-options">
+                                                            <p-chips class="" [disabled]="true" [(ngModel)]="parte.discordias" field="iniciales" name="magistradoSeleccionado"></p-chips>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </td>
+                                            <td class="col-anotacion" >
+                                                <p-overlayPanel class="overlay-custom" (onShow)="showOverlay(parte.xobservacion)" #op>
+                                                    <!-- <input id="disabled-input" *ngIf="parte.lrecurrente=='S'" class="data-input-recurrente" type="text" [disabled]="parte.lrecurrente!=='S' || !ponenteMode" [(ngModel)]="parte.xobservacion"  [maxlength]="255" pInputText/> -->
+                                                    <div class="apuntes-container">
+                                                        <textarea id="disabled-input" *ngIf="parte.lrecurrente=='S'" class="data-input-recurrente" [disabled]="parte.lrecurrente!=='S' || !ponenteMode" [(ngModel)]="parte.xobservacion" (ngModelChange)="changeOverlay($event)"  rows="10" cols="80" [maxlength]="1500"></textarea>
+                                                        <div class="contador-apuntes">
+                                                            <span *ngIf="magistradoInMode || ponenteMode" class="remainingText">Quedan {{remainingTextRec}} caracteres restantes</span>
+                                                        </div>
+                                                    </div>
+                                                </p-overlayPanel>
+                                                <div class="container-boton-anotaciones">
+                                                    <p-button icon="pi pi-file-edit" *ngIf="parte.lrecurrente=='S'" [disabled]="parte.lrecurrente!=='S'" label="" class="efectos-boton" (click)="op.toggle($event)"></p-button>
+                                                <!-- <input id="disabled-input" *ngIf="parte.lrecurrente=='S'" class="data-input-recurrente" type="text" [disabled]="parte.lrecurrente!=='S' || !ponenteMode" [(ngModel)]="parte.xobservacion"  [maxlength]="255" pInputText/> -->
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </ng-template>
+                                </p-table>
+                            </div>                            
+                        </div>
+                    </div>
+                    <div *ngIf="tablillaData.existe" class="container-grupo-jurisprudencia">
+                        <div class="subcontainer-jurisprudencia">
+                            <p-panel header="Búsqueda de Jurisprudencia" class="jurisprudenciaC" [toggleable]="true">
+                                <div class="flex-column">
+                                    <div class="container-opciones-busq">
+                                        <div class="flex align-items-center">
+                                            <p-radioButton name="opcionPJ" value="PJ" [(ngModel)]="tipoBusquedaJuris" [disabled]="!magistradoInMode && !ponenteMode" (onClick)="actualizarDesc()" inputId="opcionPJ"></p-radioButton>
+                                            <label for="opcionPJ" class="ml-2">Poder Judicial</label>
+                                        </div>
+                                        <div class="flex align-items-center">
+                                            <p-radioButton name="opcionTC" value="TC" [(ngModel)]="tipoBusquedaJuris" [disabled]="!magistradoInMode && !ponenteMode" (onClick)="actualizarDesc()" inputId="opcionTC"></p-radioButton>
+                                            <label for="opcionTC" class="ml-2">Tribunal Constitucional</label>
+                                        </div>
+                                        <div class="flex align-items-center">
+                                            <p-radioButton name="opcionTF" value="TF" [(ngModel)]="tipoBusquedaJuris" [disabled]="!magistradoInMode && !ponenteMode" (onClick)="actualizarDesc()" inputId="opcionTF"></p-radioButton>
+                                            <label for="opcionTF" class="ml-2">Tribunal Fiscal</label>
+                                        </div>
+                                    </div>
+                                    <div class="jurisprudencia-buscador mt-4">
+                                        <div class="p-inputgroup">
+                                            <div class="p-float-label pt-2">
+                                                <input id="txt-num-doc" type="text" class="p-inputtext-sm input2-pj" value="" (keydown.enter)="buscarJud()" [(ngModel)]="busqJurisprudencia" [disabled]="!magistradoInMode && !ponenteMode" autocomplete="off" pInputText> 
+                                                <label for="txt-num-doc">{{descJurisprudencia}}</label>
+                                            </div>
+                                            <button pButton pRipple type="button" label="" icon="pi pi-search" (click)="buscarJud()" [disabled]="!magistradoInMode && !ponenteMode" iconPos="left"  class="p-button-sm btn-pj mt-2 px-5"></button>
+                                        </div>
+                                    </div>
+                                    <!-- <p-pickList [source]="documentosEncontrados" [target]="documentosAdjuntos" sourceHeader="RESULTADO" targetHeader="ADJUNTAR" [dragdrop]="false" [responsive]="true" [sourceStyle]="{ height: '10rem' }"
+                                        filterBy="recurso" (onSourceFilter)="buscarJud()" [showSourceFilter]="false" [showTargetFilter]="false" [disabled]="!jurisprudenciaMode && !ponenteMode"  breakpoint="550px"> -->
+                                    <p-pickList [source]="documentosEncontrados" [target]="documentosAdjuntos" sourceHeader="RESULTADO" targetHeader="ADJUNTAR" [dragdrop]="false" [responsive]="true" [sourceStyle]="{ height: '15rem' }" [targetStyle]="{ height: '15rem' }"
+                                        filterBy="recurso" (onSourceFilter)="buscarJud()" [showSourceFilter]="false" [showTargetFilter]="false" breakpoint="600px">                                        
+                                        <ng-template let-doc pTemplate="item">
+                                            <div class="container-resultado-juris">
+                                                <div>
+                                                    <span class="font-bold">({{doc.nombreEntidad}})</span>
+                                                </div>  
+                                                <div>
+                                                    <span class="font-bold">{{doc.recurso }}</span>
+                                                </div>
+                                                <div class="grid center zclass">
+                                                    <i (click)="previewDoc(doc.uuid,doc.nombreEntidad)" class="pi pi-file-pdf ml-1 pr-2"></i>
+                                                </div>
+                                            </div>
+                                        </ng-template>
+                                    </p-pickList>
+                                </div>
+                            </p-panel>
+                            <div class="apuntes-container">
+                                <span class="label-grupo-data">MIS APUNTES:</span>
+                                <p-editor [modules]="configuracionEditor" [(ngModel)]="tablillaData.apuntes" [style]="{ height: '400px' }"  [disabled]="!magistradoInMode"  [readonly]="!magistradoInMode"  (ngModelChange)="valueChange($event)" [maxlength]="1500">
+                                    <ng-template pTemplate="header">
+                                        <!--<span class="ql-formats">
+                                            <select class="ql-size" aria-label="Text Size">
+                                                <option value="small">Pequeño</option>
+                                                <option selected>Normal</option>
+                                                <option value="large">Subtitulo</option>
+                                                <option value="huge">Titulo</option>
+                                            </select>
+                                        </span>-->
+                                        <!--<span class="ql-formats">
+                                            <button type="button" class="ql-bold" aria-label="Bold"></button>
+                                            <button type="button" class="ql-italic" aria-label="Italic"></button>
+                                            <button type="button" class="ql-underline" aria-label="Underline"></button>
+                                        
+                                        </span>-->
+
+                                        <!--<span class="ql-formats">
+                                            <select class="ql-align" aria-label="Text Alignment">
+                                                <option selected></option>
+                                                <option value="center"></option>
+                                                <option value="right"></option>
+                                                <option value="justify"></option>
+                                            </select>
+                                        </span>-->
+
+                                        <!--<span class="ql-formats">
+                                            <select class="ql-color"></select>
+                                            <select class="ql-background">
+                                                <option selected></option>
+                                                <option value="#FFFF99"></option>
+                                                <option value="#99FF99"></option>
+                                            </select>
+                                        </span>-->
+                                        <!--
+                                        <span class="ql-formats">
+                                            <button type="button" class="ql-list" value="ordered" aria-label="Ordered List"></button>
+                                            <button type="button" class="ql-list" value="bullet" aria-label="Bullet List"></button>
+                                        </span>-->
+
+                                        <!--<span class="ql-formats">
+                                            <button type="button" class="ql-clean" aria-label="Remove Format"></button>
+                                        </span>-->
+                                    </ng-template>
+                                </p-editor>
+                                <!--<textarea class="custom-textarea" [(ngModel)]="tablillaData.apuntes" [disabled]="!magistradoInMode" rows="18" cols="80" [autoResize]="true" (ngModelChange)="valueChange($event)" [maxlength]="1500" pInputTextarea></textarea>-->
+                                <div class="contador-apuntes">
+                                    <span *ngIf="magistradoInMode || ponenteMode" class="remainingText">Quedan {{remainingText}} caracteres restantes</span>
+                                </div>
+                            </div>
+                        </div>
+                        <df-messenger *ngIf="mostrarCuria"
+                            project-id="pe-pjlabia-cld-01"
+                            agent-id="d8e419dd-7cc2-4830-8698-b771db753697"
+                            intent="WELCOME"
+                            language-code="es"
+                            max-query-length="-1">
+                            <df-messenger-chat-bubble
+                                chat-title="Prompt Curia">
+                            </df-messenger-chat-bubble>
+                        </df-messenger>
+                    </div>
+                    <!-- <div *ngIf="tablillaData.existe" class="container-confirmacion">
+                        <div class="apuntes-container">
+                            <span class="label-grupo-data font-bold">Desea confirmar para proyecto? </span>
+                            <div class="flex flex-wrap gap-3">
+                                <div class="flex align-items-center">
+                                    <p-radioButton name="opcionS" value="S" [(ngModel)]="tablillaData.flagGeneraProyecto" inputId="opcionS"></p-radioButton>
+                                    <label for="opcionS" class="ml-2">SI</label>
+                                </div>
+                                <div class="flex align-items-center">
+                                    <p-radioButton name="opcionN" value="N" [(ngModel)]="tablillaData.flagGeneraProyecto" inputId="opcionN"></p-radioButton>
+                                    <label for="opcionN" class="ml-2">NO</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>                     -->
+                    <div *ngIf="tablillaData.existe" class="centrar-componentes">
+                        <div class="container-grupo mt-5 mb-4">
+                            <div class="flex align-items-center">
+                                <p-checkbox [binary]="true" label="AL VOTO" [(ngModel)]="flagVoto" [disabled]="!ponenteMode" (onChange)="cambiarAlVoto()"></p-checkbox>
+                            </div>
+                        </div>   
+                    </div>                                            
+                </p-panel>                
+            </div>
+
+            <div class="col-12 center">
+                <button pButton pRipple type="button" label="Grabar" (click)="grabar()" [disabled]="!magistradoInMode" icon="pi pi-save" iconPos="right"  class="btn-vj-black rounded-sv mr-2"></button>
+                <button pButton pRipple type="button" label="Regresar" (click)="back()" icon="pi pi-arrow-left" iconPos="right"  class="btn-vj-black rounded-sv"></button>
+            </div>             
+        </div>
+    </div>        
+    <app-footer></app-footer>
+</div>
+
+<p-dialog header="Vista previa del PDF" [(visible)]="displayModal" [modal]="true" [style]="{width: '1000px', height: '650px' }" styleClass="dialog-primary">
+    <iframe *ngIf="pdfSafeUrl" [src]="pdfSafeUrl"  width="100%" height="100%"></iframe>
+</p-dialog>
+
+<p-dialog header="SELECCIONAR DISCORDIA" [(visible)]="displayDialogDiscordias" (onHide)="onDialogHide()" [style]="{width: 'auto'}" [modal]="true" styleClass="dialog-primary">
+    <div class="containerSelDiscordia">
+        <p-multiSelect [options]="listaMagSinPonente||undefined" [(ngModel)]="this.recurrenteSeleccionado.discordias" (onChange)="validarDiscordias()" optionLabel="nombreUsuario" placeholder="Seleccionar" [filter]="false" [showToggleAll]="false" [showHeader]="false" [selectionLimit]=3 appendTo="body"></p-multiSelect>
+    </div>
+    <p-footer>
+        <button type="button" [disabled]="!validaDiscordia" pButton label="OK" (click)="onOptionsSelected()"></button>
+    </p-footer>
+</p-dialog>
+
+<p-dialog header="VISUALIZAR TABLILLA" [(visible)]="dialogTab" (onHide)="onDialogHide()" [style]="{width: 'auto'}" [modal]="true" styleClass="dialog-primary">
+    <div class="panel-content centrar-componentes" >
+        <div class="container-grupo-data">
+            <div class="container-subgrupo">
+                <div class="container-data-origen">
+                    <span class="label-grupo-data">Juzgado de Origen</span>
+                    <div class="grupo-data-origen">
+                        <input id="disabled-input" class="data-maestra data-origen descProceso" type="text" pInputText [disabled]="true" value="{{this.tablillaDataSec.descProceso}}" pTooltip="{{this.tablillaDataSec.descProceso}}" />
+                        <input id="disabled-input" class="data-maestra data-origen descActoProcesal" type="text" pInputText [disabled]="true" value="{{this.tablillaDataSec.descActoProcesalJuez}} FJS. {{this.tablillaDataSec.fojasJuez}}" pTooltip="{{this.tablillaDataSec.descActoProcesalJuez}} FJS. {{this.tablillaDataSec.fojasJuez}}"/>
+                        <input id="disabled-input" class="data-maestra data-origen" type="text" pInputText [disabled]="true" value="{{this.tablillaDataSec.descFalloJuez}}" pTooltip="{{this.tablillaDataSec.descFalloJuez}}" />
+                    </div>
+                </div>
+                <div class="container-data-origen">
+                    <span class="label-grupo-data">Sala de Procedencia</span>
+                    <div class="grupo-data-origen">
+                        <input id="disabled-input"  class="data-maestra data-procedencia descActoProcesal" type="text" pInputText [disabled]="true" value="{{this.tablillaDataSec.descActoProcesalProcedencia}} FJS. {{this.tablillaDataSec.fojasOrigenProcedencia}}"  pTooltip="{{this.tablillaDataSec.descActoProcesalProcedencia}} FJS. {{this.tablillaDataSec.fojasOrigenProcedencia}}"/>
+                        <input id="disabled-input"  class="data-maestra data-procedencia" type="text" pInputText [disabled]="true" value="{{this.tablillaDataSec.descFalloProcedencia}}" pTooltip="{{this.tablillaDataSec.descFalloProcedencia}}"/>
+                    </div>                            
+                </div>                            
+            </div>
+            <div class="container-subgrupo">
+                <div class="container-data-magistrado">
+                    <span class="label-grupo-data">Magistrados</span>
+                    <div class="grupo-data">
+                        <input id="disabled-input" class="data-magistrados data-maestra" type="text" pInputText [disabled]="true" value="{{this.tablillaDataSec.magistrado1}}" [ngClass]="{'highlighted': this.tablillaDataSec.magistrado1Flag==='S'}" pTooltip="{{this.tablillaDataSec.magistrado1}}"/>
+                        <input id="disabled-input" class="data-magistrados data-maestra" type="text" pInputText [disabled]="true" value="{{this.tablillaDataSec.magistrado2}}" [ngClass]="{'highlighted': this.tablillaDataSec.magistrado2Flag==='S'}" pTooltip="{{this.tablillaDataSec.magistrado2}}"/>
+                        <input id="disabled-input" class="data-magistrados data-maestra" type="text" pInputText [disabled]="true" value="{{this.tablillaDataSec.magistrado3}}" [ngClass]="{'highlighted': this.tablillaDataSec.magistrado3Flag==='S'}" pTooltip="{{this.tablillaDataSec.magistrado3}}"/>                                
+                        <input id="disabled-input" class="data-magistrados data-maestra" type="text" pInputText [disabled]="true" value="{{this.tablillaDataSec.magistrado4}}" [ngClass]="{'highlighted': this.tablillaDataSec.magistrado4Flag==='S'}" pTooltip="{{this.tablillaDataSec.magistrado4}}"/>
+                        <input id="disabled-input" class="data-magistrados data-maestra" type="text" pInputText [disabled]="true" value="{{this.tablillaDataSec.magistrado5}}" [ngClass]="{'highlighted': this.tablillaDataSec.magistrado5Flag==='S'}" pTooltip="{{this.tablillaDataSec.magistrado5}}"/>
+                    </div>                            
+                </div>
+                <div class="container-data-magistrado">
+                    <span class="label-grupo-data">Impedimentos</span>
+                    <div class="grupo-data">
+                        <input id="disabled-input" class="data-magistrados data-maestra" type="text" pInputText [disabled]="true" value="{{this.tablillaDataSec.impedimento1}}" [ngClass]="{'highlighted': this.tablillaDataSec.impedimento1Flag==='S'}" pTooltip="{{this.tablillaDataSec.impedimento1}}"/>
+                        <input id="disabled-input" class="data-magistrados data-maestra" type="text" pInputText [disabled]="true" value="{{this.tablillaDataSec.impedimento2}}" [ngClass]="{'highlighted': this.tablillaDataSec.impedimento2Flag==='S'}" pTooltip="{{this.tablillaDataSec.impedimento2}}"/>
+                        <input id="disabled-input" class="data-magistrados data-maestra" type="text" pInputText [disabled]="true" value="{{this.tablillaDataSec.impedimento3}}" [ngClass]="{'highlighted': this.tablillaDataSec.impedimento3Flag==='S'}" pTooltip="{{this.tablillaDataSec.impedimento3}}"/>                                
+                        <input id="disabled-input" class="data-magistrados data-maestra" type="text" pInputText [disabled]="true" value="{{this.tablillaDataSec.impedimento4}}" [ngClass]="{'highlighted': this.tablillaDataSec.impedimento4Flag==='S'}" pTooltip="{{this.tablillaDataSec.impedimento4}}"/>
+                        <input id="disabled-input" class="data-magistrados data-maestra" type="text" pInputText [disabled]="true" value="{{this.tablillaDataSec.impedimento5}}" [ngClass]="{'highlighted': this.tablillaDataSec.impedimento5Flag==='S'}" pTooltip="{{this.tablillaDataSec.impedimento5}}"/>
+                    </div>                            
+                </div>                            
+            </div>
+        </div>
+        <div class="container-grupo-materias">
+            <div class="container-materias">
+                <p-panel header="MATERIAS" [collapsed]="true" class="materiaC" [toggleable]="true">
+                    <ul>
+                        <li class="label-grupo-data" *ngFor="let item of this.tablillaDataSec.materias">{{ item.xmateria }}</li>
+                        <li *ngIf="!this.tablillaDataSec.materias || this.tablillaDataSec.materias.length === 0" class="label-grupo-data">
+                            NO EXISTEN MATERIAS REGISTRADAS.
+                        </li>
+                    </ul>
+                </p-panel>
+            </div>
+            <div class="container-materias">
+                <p-panel header="CAUSALES" [collapsed]="true" class="materiaC" [toggleable]="true">
+                    <ul>
+                        <li class="label-grupo-data" *ngFor="let item of this.tablillaDataSec.causales">{{ item }}</li>
+                        <li *ngIf="!this.tablillaDataSec.causales || this.tablillaDataSec.causales.length === 0" class="label-grupo-data">
+                            NO EXISTEN CAUSALES REGISTRADAS.
+                        </li>
+                    </ul>
+                </p-panel>
+            </div>
+        </div> 
+    </div>        
+    <div class="centrar-componentes-tabla">
+        <div class="container-grupo container-tabla">
+            <div class="tabla-recurrentes"  style="overflow: scroll;">
+                <p-table [value]="tablillaDataSec.recurrentes" class="p-datatable-sm tabla-custom" [tableStyle]="{'min-width': '50rem'}" >
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th class="col-tipo">TIPO PARTE</th>
+                            <th class="col-tipo">NOMBRE</th>
+                            <th class="col-sentido">SENTIDO</th>
+                            <th class="col-sentido">FALLO</th>
+                            <th class="col-sentido">DISCORDIA</th>
+                            <th class="col-anotacion">EFECTOS DEL SENTIDO</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-parte>
+                        <tr [ngClass]="{'disableClass': parte.lrecurrente!=='S'}">
+                            <td class="col-tipo">
+                                {{parte.ltipoParte}}
+                            </td>
+                            <td class="col-parte">
+                                {{parte.nombreParte}}
+                            </td>
+                            <td class="col-sentido">
+                                <p-dropdown [options]="listaVacia" *ngIf="parte.lrecurrente=='S'" [disabled]="true" [placeholder]="parte.sentido.xsentido" optionLabel="xsentido" class="custom-dropdown" [style]="{'width':'100%'}" appendTo="body"></p-dropdown>
+                            </td>
+                            <td class="col-sentido">
+                                <p-dropdown [options]="listaVacia" *ngIf="parte.lrecurrente=='S'" [disabled]="true"  [placeholder]="parte.fallo.xfallo"  optionLabel="xfallo" class="custom-dropdown" [style]="{'width':'100%'}" appendTo="body"></p-dropdown>
+                            </td>
+                            <td class="col-sentido">
+                                <div class="discordia-container" *ngIf="parte.lrecurrente=='S'">
+                                    <form class="discordia-form" #myForm="ngForm">
+                                        <div>
+                                            <button type="button" pButton icon="pi pi-plus" [disabled]="true" label="" class="discordia-boton" ></button>
+                                        </div>
+                                        <div class="selected-options">
+                                            <p-chips class="" [disabled]="true" [(ngModel)]="parte.discordias" field="iniciales" name="magistradoSeleccionado"></p-chips>
+                                        </div>
+                                    </form>
+                                </div>
+                            </td>
+                            <td class="col-anotacion" >
+                                <!-- <input id="disabled-input" *ngIf="parte.lrecurrente=='S'" class="data-input-recurrente" type="text" [disabled]="true" [(ngModel)]="parte.xobservacion"  [maxlength]="255" pInputText/> -->
+                                <p-overlayPanel class="overlay-custom" #ot>
+                                    <div class="apuntes-container">
+                                        <textarea id="disabled-input" *ngIf="parte.lrecurrente=='S'" class="data-input-recurrente" [disabled]="true" [(ngModel)]="parte.xobservacion" rows="10" cols="80" [maxlength]="1500"></textarea>
+                                    </div>
+                                </p-overlayPanel>
+                                <div class="container-boton-anotaciones">
+                                    <p-button icon="pi pi-file-edit" *ngIf="parte.lrecurrente=='S'" label="" class="efectos-boton" (click)="ot.toggle($event)"></p-button>
+                                </div>                                  
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>                            
+        </div>
+    </div>
+    <div class="container-grupo-jurisprudencia">
+        <div class="subcontainer-jurisprudencia">
+            <p-panel header="Búsqueda de Jurisprudencia" class="jurisprudenciaC" [toggleable]="true">
+                <div class="flex-column">
+                    <div class="container-opciones-busq">
+                        <div class="flex align-items-center">
+                            <p-radioButton name="opcionPJ" value="PJ" [(ngModel)]="tipoBusquedaJuris" [disabled]="true" inputId="opcionPJ"></p-radioButton>
+                            <label for="opcionPJ" class="ml-2">Poder Judicial</label>
+                        </div>
+                        <div class="flex align-items-center">
+                            <p-radioButton name="opcionTC" value="TC" [(ngModel)]="tipoBusquedaJuris" [disabled]="true" inputId="opcionTC"></p-radioButton>
+                            <label for="opcionTC" class="ml-2">Tribunal Constitucional</label>
+                        </div>
+                        <div class="flex align-items-center">
+                            <p-radioButton name="opcionTF" value="TF" [(ngModel)]="tipoBusquedaJuris" [disabled]="true" inputId="opcionTF"></p-radioButton>
+                            <label for="opcionTF" class="ml-2">Tribunal Fiscal</label>
+                        </div>
+                    </div>
+                    <div class="jurisprudencia-buscador mt-4">
+                        <div class="p-inputgroup">
+                            <div class="p-float-label pt-2">
+                                <input id="txt-num-doc" type="text" class="p-inputtext-sm input2-pj" value="" [(ngModel)]="busqJurisprudenciaSec" [disabled]="true" autocomplete="off" pInputText> 
+                                <label for="txt-num-doc">Nro. Casación (Ejm. 2030-2016)</label>
+                            </div>
+                            <button pButton pRipple type="button" label="" icon="pi pi-search" [disabled]="true" iconPos="left"  class="p-button-sm btn-pj mt-2 px-5"></button>
+                        </div>
+                    </div>
+                    <p-pickList [source]="documentosEncontradosSec" [target]="documentosAdjuntosSec" sourceHeader="RESULTADO" targetHeader="ADJUNTAR" [dragdrop]="false" [responsive]="true" [sourceStyle]="{ height: '10rem' }"
+                        filterBy="recurso" [showSourceFilter]="false" [showTargetFilter]="false" breakpoint="600px">
+                        <ng-template let-doc pTemplate="item">
+                            <div class="container-resultado-juris">
+                                <div>
+                                    <span class="font-bold">{{ doc.recurso }}</span>
+                                </div>
+                                <div>
+                                    <span class="font-bold">({{ doc.nombreEntidad }})</span>
+                                </div>                                                
+                                <div class="grid center zclass">
+                                    <i (click)="previewDoc(doc.uuid,doc.nombreEntidad)" class="pi pi-file-pdf ml-1 pr-2"></i>
+                                </div>
+                            </div>
+                        </ng-template>
+                    </p-pickList>
+                </div>
+            </p-panel>
+            <div class="apuntes-container">
+                <span class="label-grupo-data">MIS APUNTES:</span>
+                <!--<textarea class="custom-textarea" [(ngModel)]="tablillaDataSec.apuntes" [disabled]="true" rows="18" cols="80" pInputTextarea></textarea>-->
+                <p-editor [(ngModel)]="tablillaDataSec.apuntes" [style]="{ height: '400px' }"  [disabled]="true"  [readonly]="true">
+                    <ng-template pTemplate="header">
+                    </ng-template>
+                </p-editor>
+            </div>
+        </div>
+        <div class="container-grupo mt-5 mb-4">
+            <div class="flex align-items-center">
+                <p-checkbox name="groupname" [binary]="true" label="AL VOTO" value="false" [disabled]="true" ></p-checkbox>
+            </div>
+        </div>                                                
+    </div>
+</p-dialog>

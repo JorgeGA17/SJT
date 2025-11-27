@@ -1,0 +1,35 @@
+<div class="voting-detail-container">
+  <!-- Sidenav Container -->
+  <mat-sidenav-container class="sidenav-container">
+    <!-- Sidenav -->
+    <mat-sidenav
+      #sidenav
+      [mode]="sidenavMode()"
+      [opened]="sidenavOpen()"
+      (openedChange)="layoutService.sidenavOpen() ? null : layoutService.closeSidenav()"
+      class="voting-sidenav"
+    >
+      <app-voting-navigation
+        (votacionSelected)="onVotacionSelected($event)"
+      ></app-voting-navigation>
+    </mat-sidenav>
+
+    <!-- Main Content -->
+    <mat-sidenav-content class="main-content">
+      <!-- Toolbar -->
+      <mat-toolbar color="primary" class="voting-toolbar">
+        <button mat-icon-button (click)="toggleSidenav()">
+          <mat-icon>menu</mat-icon>
+        </button>
+        <span class="toolbar-title"></span>
+        <span class="spacer"></span>
+        <button mat-button (click)="goToCalendar()">
+          <mat-icon>calendar_today</mat-icon>
+          <span class="button-text">Calendario</span>
+        </button>
+      </mat-toolbar>
+      
+      <app-voting-content [votacion]="selectedVotacion"></app-voting-content>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>

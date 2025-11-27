@@ -1,0 +1,235 @@
+<div class="voting-content-container" *ngIf="votacion">
+  <div class="casacion-header-info">
+    <div class="casacion-info">
+      NÚMERO DE ORDEN Y/O CASACIÓN :
+    </div>
+    <div class="nro-rec">
+      <mat-form-field appearance="outline" class="w-100 login-valid" >
+          <mat-select class="select-mt">
+              <mat-option class="seletc-option-mt" value="in">{{votacion.numeroRecurso}}</mat-option>
+          </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="casacion-info">
+      ESTADO:
+    </div>
+    <div class="chip-info">
+      {{votacion.nombreEstado}}
+    </div>
+    <div class="btn-fab">
+      <button mat-mini-fab 
+        aria-label="Example icon button with a menu icon">
+        <mat-icon>format_list_bulleted</mat-icon>
+      </button>
+    </div>
+    <div class="btn-fab">
+      <button mat-mini-fab 
+        aria-label="Example icon button with a menu icon">
+        <mat-icon>file_open</mat-icon>
+      </button>
+    </div>
+    <div class="btn-fab">
+      <button mat-mini-fab 
+        aria-label="Example icon button with a menu icon">
+        <mat-icon>replay</mat-icon>
+      </button>
+    </div>
+    <div class="btn-action">
+      <button mat-flat-button class="btn-mt" [disabled]="true">
+        <mat-icon>arrow_back_ios</mat-icon> 
+        ANTERIOR 
+      </button>
+    </div>
+    <div class="btn-action">
+      <button mat-flat-button class="btn-mt btn-icon-right" [disabled]="true">
+        <span class="btn-content">
+          SIGUEINTE 
+          <mat-icon>arrow_forward_ios</mat-icon> 
+        </span>
+      </button>
+    </div>
+  </div>
+
+  <div>
+    <mat-card class="example-card" appearance="outlined">
+      <mat-card-header>
+        <mat-card-title class="card-title">{{votacion.numeroRecurso||''}} {{votacion.codigoProcedencia +' - '+votacion.nombreProcedencia}}</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="card-content">
+          <div class="casacion-origen">
+            <div class="sala-origen">
+                <div class="juz-origen">
+                  <div class="divider-1">
+                      <span>Juzgado de Origen</span>
+                  </div>
+                  <div class="juz-origen-det">
+                    <div class="chip-origen">
+                      ACCION POPULAR
+                    </div>
+                    <div class="chip-origen">
+                      FJS
+                    </div>
+                    <div class="chip-origen">
+                      
+                    </div>
+                  </div>
+                </div>
+                <div class="juz-origen">
+                  <div class="divider-1">
+                      <span>Sala de Procedencia</span>
+                  </div>
+                  <div class="sala-origen-det">
+                    <div class="chip-origen">
+                      FJS
+                    </div>
+                    <div class="chip-origen">
+                      
+                    </div>
+                  </div>
+                </div>
+            </div>
+            <div class="magistrados-voto">
+              <div class="nmagistrado">
+                <div class="divider-1">
+                  <span>Magistrados</span>
+                </div>
+                <div class="magistrados-det">
+                  <div class="chip-origen">
+                      YAYA
+                  </div>
+                  <div class="chip-origen chip-origen-primary">
+                      BUSTAMANTE
+                  </div>
+                  <div class="chip-origen">
+                      BELTRAN
+                  </div>
+                  <div class="chip-origen">
+                      DELGADO
+                  </div>
+                  <div class="chip-origen">
+                      GUTIERRES
+                  </div>
+                </div>
+              </div>
+              <div class="impedimentos">
+                <div class="divider-1">
+                    <span>Impedimentos</span>
+                </div>
+                <div class="magistrados-det">
+                  <div class="chip-origen">
+                      YZ
+                  </div>
+                  <div class="chip-origen">
+                      BC
+                  </div>
+                  <div class="chip-origen">
+                      BP
+                  </div>
+                  <div class="chip-origen">
+                      YD
+                  </div>
+                  <div class="chip-origen">
+                      LG
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <mat-expansion-panel [expanded]="true">
+              <mat-expansion-panel-header>
+                <mat-panel-title> MATERIAS </mat-panel-title>
+              </mat-expansion-panel-header>
+              <div class="partes-content">
+
+              </div>
+          </mat-expansion-panel>
+
+          <mat-expansion-panel [expanded]="true">
+              <mat-expansion-panel-header>
+                <mat-panel-title> CAUSALES </mat-panel-title>
+              </mat-expansion-panel-header>
+              <div class="partes-content">
+
+              </div>
+          </mat-expansion-panel>
+
+          <app-parts-table ></app-parts-table>
+
+          <div class="two-columns-section">
+            <!-- Columna Izquierda: PickList -->
+            <div class="column left-column">
+              <mat-expansion-panel [expanded]="true">
+                <mat-expansion-panel-header>
+                  <mat-panel-title> Búsqueda de Jurisprudencia </mat-panel-title>
+                </mat-expansion-panel-header>
+                <div class="juris-content">
+                  <div class="juris-filters">
+                    <div class="juris-repo">
+                      <mat-radio-group aria-label="Select an option">
+                        <mat-radio-button value="1">Poder Judicial</mat-radio-button>
+                        <mat-radio-button value="2">Tribunal Constitucional</mat-radio-button>
+                        <mat-radio-button value="3">Tribunal Fiscal</mat-radio-button>
+                      </mat-radio-group>
+                    </div>
+                    <div class="juris-search">
+                      <app-input-search-component></app-input-search-component>
+                    </div>
+                  </div>
+                   <app-pick-list
+                      [availableItems]="[]"
+                      [selectedItems]="[]"
+                    ></app-pick-list>
+                </div>
+              </mat-expansion-panel>
+        
+            </div>
+
+            <!-- Columna Derecha: Editor de texto enriquecido -->
+            <div class="column right-column">
+              <mat-expansion-panel [expanded]="true">
+                <mat-expansion-panel-header>
+                  <mat-panel-title> Apuntes</mat-panel-title>
+                </mat-expansion-panel-header>
+
+                <app-rich-text-editor
+                  [initialContent]="votacion.descripcionProceso"
+                ></app-rich-text-editor>
+
+              </mat-expansion-panel>
+              
+            </div>
+          </div>
+          <div class="check-al-voto center">
+              <mat-checkbox >Al voto</mat-checkbox>
+          </div>
+          <div class="center">
+            <button mat-flat-button class="btn-mt btn-plata">Guardar</button>
+          </div>
+        </div>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-flat-button class="pj-btn-flat-sm" >Regresar</button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+
+  <!-- FILA 1: Título -->
+  <!--<div class="title-section">
+    <h1 class="voting-title">{{ votacion.titulo }}</h1>
+    <div class="voting-metadata">
+      <span class="expediente"><strong>Expediente:</strong> {{ votacion.expediente }}</span>
+      <span class="fecha"><strong>Fecha:</strong> {{ formatDate(votacion.fecha) }}</span>
+      <span class="ponente"><strong>Ponente:</strong> {{ votacion.ponente }}</span>
+    </div>
+  </div>-->
+
+</div>
+
+<!-- Mensaje cuando no hay votación seleccionada -->
+<div class="no-selection" *ngIf="!votacion">
+  <mat-icon class="no-selection-icon">info</mat-icon>
+  <h2>No hay votación seleccionada</h2>
+  <p>Seleccione una votación de la lista lateral para ver sus detalles.</p>
+</div>

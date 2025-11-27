@@ -1,0 +1,264 @@
+.multi-panel-container {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  background-color: #1e1e1e;
+  overflow: hidden;
+}
+
+// Toolbar superior
+.panel-toolbar {
+  flex-shrink: 0;
+  background-color: #2d2d2d;
+  border-bottom: 1px solid #1e1e1e;
+  padding: 8px 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  .create-panel-btn {
+    color: #cccccc;
+    font-size: 13px;
+    height: 32px;
+    line-height: 32px;
+
+    mat-icon {
+      margin-right: 4px;
+    }
+
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+      color: white;
+    }
+  }
+}
+
+// Área de paneles
+.panels-area {
+  flex: 1;
+  overflow: hidden;
+}
+
+// Contenedor de splits
+.split-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  position: relative;
+
+  &.split-horizontal {
+    flex-direction: row;
+  }
+
+  &.split-vertical {
+    flex-direction: column;
+  }
+}
+
+// Panel individual
+.split-pane {
+  position: relative;
+  overflow: hidden;
+  min-width: 50px;
+  min-height: 50px;
+}
+
+// Separador entre paneles
+.split-separator {
+  background-color: #2d2d2d;
+  position: relative;
+  z-index: 10;
+  flex-shrink: 0;
+
+  &.horizontal {
+    width: 4px;
+    cursor: col-resize;
+
+    &:hover {
+      background-color: #007acc;
+    }
+
+    .separator-handle {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 8px;
+      height: 40px;
+      background-color: transparent;
+    }
+  }
+
+  &.vertical {
+    height: 4px;
+    cursor: row-resize;
+
+    &:hover {
+      background-color: #007acc;
+    }
+
+    .separator-handle {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 40px;
+      height: 8px;
+      background-color: transparent;
+    }
+  }
+
+  &:active {
+    background-color: #007acc;
+  }
+}
+
+// Panel leaf (contiene el documento o está vacío)
+.panel-leaf {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  background-color: #252526;
+  border: 1px solid #2d2d2d;
+
+  &.empty-panel {
+    background-color: #1e1e1e;
+  }
+}
+
+// Header del panel
+.panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  background-color: #2d2d2d;
+  border-bottom: 1px solid #1e1e1e;
+  min-height: 40px;
+  flex-shrink: 0;
+
+  .panel-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex: 1;
+    overflow: hidden;
+
+    .panel-icon {
+      font-size: 18px;
+      width: 18px;
+      height: 18px;
+      color: #cccccc;
+      flex-shrink: 0;
+    }
+
+    .panel-name {
+      font-size: 13px;
+      color: #cccccc;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      font-weight: 400;
+    }
+  }
+
+  .panel-actions {
+    display: flex;
+    gap: 4px;
+    flex-shrink: 0;
+
+    .panel-action-btn {
+      width: 28px;
+      height: 28px;
+      line-height: 28px;
+      color: #cccccc;
+
+      mat-icon {
+        font-size: 18px;
+        width: 18px;
+        height: 18px;
+        line-height: 18px;
+      }
+
+      &:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+        color: white;
+      }
+    }
+  }
+}
+
+// Contenido del panel
+.panel-content {
+  flex: 1;
+  overflow: hidden;
+  background-color: #1e1e1e;
+}
+
+// Mensaje de panel vacío
+.empty-panel-message {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: rgba(204, 204, 204, 0.5);
+  text-align: center;
+  padding: 32px;
+
+  .empty-icon {
+    font-size: 56px;
+    width: 56px;
+    height: 56px;
+    margin-bottom: 12px;
+    color: rgba(204, 204, 204, 0.3);
+  }
+
+  h3 {
+    margin: 0 0 8px 0;
+    font-size: 18px;
+    font-weight: 500;
+    color: #cccccc;
+  }
+
+  p {
+    margin: 0;
+    font-size: 14px;
+    max-width: 300px;
+    color: rgba(204, 204, 204, 0.5);
+    line-height: 1.5;
+  }
+}
+
+// Estilos para el menú de división
+::ng-deep {
+  .mat-mdc-menu-panel {
+    background-color: #252526;
+
+    .mat-mdc-menu-item {
+      color: #cccccc;
+
+      &:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+      }
+
+      mat-icon {
+        color: #cccccc;
+      }
+    }
+  }
+}
+
+// Prevenir selección de texto durante el resize
+.split-separator:active ~ * {
+  user-select: none;
+  pointer-events: none;
+}
+
+// Animaciones suaves
+.split-pane,
+.panel-content {
+  transition: width 0.05s ease-out, height 0.05s ease-out;
+}

@@ -1,0 +1,143 @@
+.editor-card {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+
+  mat-card-header {
+    padding: 16px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+
+    mat-card-title {
+      font-size: 16px;
+      font-weight: 600;
+      margin: 0;
+    }
+  }
+
+  mat-card-content {
+    flex: 1;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.quill-editor {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+
+  ::ng-deep {
+    .ql-container {
+      flex: 1;
+      font-size: 14px;
+      min-height: 300px;
+      max-height: 500px;
+      overflow-y: auto;
+    }
+
+    .ql-toolbar {
+      border-top: none;
+      border-left: none;
+      border-right: none;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+      background-color: #f5f5f5;
+      padding: 12px;
+    }
+
+    .ql-editor {
+      padding: 16px;
+      line-height: 1.6;
+
+      &.ql-blank::before {
+        font-style: italic;
+        color: rgba(0, 0, 0, 0.4);
+      }
+
+      p {
+        margin-bottom: 8px;
+      }
+
+      h1, h2, h3, h4, h5, h6 {
+        margin-top: 16px;
+        margin-bottom: 8px;
+        font-weight: 600;
+      }
+
+      ul, ol {
+        padding-left: 24px;
+        margin-bottom: 8px;
+      }
+
+      blockquote {
+        border-left: 4px solid #3f51b5;
+        padding-left: 16px;
+        margin-left: 0;
+        margin-right: 0;
+        color: rgba(0, 0, 0, 0.7);
+        font-style: italic;
+      }
+
+      code {
+        background-color: #f5f5f5;
+        padding: 2px 6px;
+        border-radius: 3px;
+        font-family: 'Courier New', Courier, monospace;
+      }
+
+      pre {
+        background-color: #f5f5f5;
+        padding: 12px;
+        border-radius: 4px;
+        overflow-x: auto;
+      }
+    }
+
+    .ql-snow .ql-picker {
+      font-size: 14px;
+    }
+
+    .ql-snow .ql-stroke {
+      stroke: rgba(0, 0, 0, 0.7);
+    }
+
+    .ql-snow .ql-fill {
+      fill: rgba(0, 0, 0, 0.7);
+    }
+
+    .ql-toolbar button:hover,
+    .ql-toolbar button:focus,
+    .ql-toolbar button.ql-active {
+      color: #3f51b5;
+
+      .ql-stroke {
+        stroke: #3f51b5;
+      }
+
+      .ql-fill {
+        fill: #3f51b5;
+      }
+    }
+  }
+}
+
+// Responsive
+@media (max-width: 768px) {
+  .quill-editor {
+    ::ng-deep {
+      .ql-container {
+        min-height: 200px;
+        max-height: 300px;
+      }
+
+      .ql-toolbar {
+        padding: 8px;
+
+        button {
+          width: 24px;
+          height: 24px;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,43 @@
+<app-navbar></app-navbar>
+<div class="main-container">
+    <div class="main-content">
+        <div #mc1 class="grid center">
+            <div class="center mt-4 w-100">
+                <span class="registro-title">CORTE SUPREMA DE JUSTICIA DE LA REPÚBLICA</span>
+            </div>
+            <div class="center w-100">
+                <span class="registro-title">{{nombreSalaUsuario||''}}</span>
+            </div>
+            <div class="col col-12 mt-4 divisor_subtitle">
+                <div class="centrar-componentes">
+                    <span class="registro-subtitle">BANDEJA DE TRABAJO</span>
+                </div>
+            </div>               
+            <div class="custom-contenido centrar-componentes">
+                <div class="card-img center">
+                    <div class="responsive-img">
+                        <img class="custom-img" [src]="rutaImagen"
+                            alt="Portada Votación Judicial Suprema">
+                        <div class="container-opciones">
+                            <div class="div-opcion boton-pendientes" (click)="irProyectos()">
+                                <!-- <button pButton pRipple type="button" label="OPCION 1" (click)="irProyectos()"  class="rounded-sv"></button> -->
+                                <div class="contador-opcion"><span>{{cantidadPendiente}}</span></div>
+                                <div class="nombre-opcion"><label>Pendientes para proyectar</label></div>
+                            </div>
+                            <div class="div-opcion boton-validar" (click)="irValidacion()">
+                                <!-- <button pButton pRipple type="button" label="OPCION 2" (click)="irValidacion()"  class="rounded-sv"></button> -->
+                                <div class="contador-opcion"><span>{{canditadPorValidar}}</span></div>
+                                <div class="nombre-opcion"><label>Pendientes por validar</label></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="back-custom">
+                    <button pButton pRipple type="button" label="REGRESAR" (click)="back()" icon="pi pi-arrow-left"
+                        iconPos="right" class="btn-vj-black rounded-sv"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <app-footer></app-footer>
+</div>
